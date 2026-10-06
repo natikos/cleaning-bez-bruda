@@ -1,75 +1,46 @@
-# Nuxt Minimal Starter
+# Bez bruda
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Website for Bez bruda, a cleaning company, built with [Nuxt 4](https://nuxt.com) and Vue 3.
 
-## Setup
+> Status: early setup. The app currently shows a favicon/app-icon preview page; the actual site is not built yet.
 
-Make sure to install dependencies:
+## Requirements
+
+- [Bun](https://bun.sh) (the repo ships a `bun.lock`)
+
+## Getting started
 
 ```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
 bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
 bun run dev
 ```
 
-## Production
+The dev server runs on `http://localhost:3000`.
 
-Build the application for production:
+## Scripts
 
-```bash
-# npm
-npm run build
+| Command             | Description                          |
+| ------------------- | ------------------------------------ |
+| `bun run dev`       | Start the development server         |
+| `bun run build`     | Build for production                 |
+| `bun run generate`  | Generate a static site               |
+| `bun run preview`   | Preview the production build locally |
+| `bun run lint`      | Lint with ESLint                     |
+| `bun run lint:fix`  | Lint and auto-fix                    |
+| `bun run typecheck` | Type-check with vue-tsc              |
 
-# pnpm
-pnpm build
+## Project structure
 
-# yarn
-yarn build
-
-# bun
-bun run build
+```
+app/       Nuxt application source (app.vue)
+content/   Brand and source material (logo, price list)
+public/    Static assets: favicons and app icons
 ```
 
-Locally preview production build:
+## Code style
 
-```bash
-# npm
-npm run preview
+ESLint with `@nuxt/eslint` stylistic rules: no semicolons, single quotes, 2-space indent, no trailing commas.
 
-# pnpm
-pnpm preview
+## Deployment
 
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+See the [Nuxt deployment docs](https://nuxt.com/docs/getting-started/deployment).
