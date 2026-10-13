@@ -250,4 +250,13 @@ const bubbles = [
   .price-badge__unit {
     font: 700 0.9em/1 var(--font-body);
   }
+  /* On phones the stage is small, so the badge gets more room around its text */
+  @media (max-width: 759px) {
+    .price-badge {
+      width: 28%;
+    }
+    .price-badge__value {
+      font-size: 2em;
+    }
+  }
 </style>
