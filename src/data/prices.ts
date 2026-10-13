@@ -8,8 +8,6 @@ export const prices = [
   { key: 'restrooms' }
 ] as const satisfies readonly { key: string, price?: number }[]
 
-export type PriceKey = (typeof prices)[number]['key']
-
 const fixed = prices.flatMap(p => ('price' in p ? [p.price] : []))
 export const minPrice = Math.min(...fixed)
 export const maxPrice = Math.max(...fixed)
