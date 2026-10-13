@@ -34,7 +34,6 @@ src/i18n/        All copy: uk.ts (source of truth) and en.ts, plus locale helper
 src/data/        Contacts, prices and structured data (schema.org) builder
 src/assets/      Photos and logo, optimized to responsive WebP at build time
 src/styles/      Global CSS and hover rules
-content/         Brand and source material (logo, price list)
 public/          Favicons, app icons, OG images, messenger icons
 ```
 
