@@ -4,8 +4,8 @@ import { defaultLocale, locales } from './src/i18n/config.ts';
 
 export default defineConfig({
   // Production URL: used for canonical links, hreflang, Open Graph, sitemap and robots.txt.
-  // TODO: replace with the real domain before deploying.
-  site: 'https://bezbruda.com.ua',
+  // Override with SITE_URL for staging/demo deploys.
+  site: process.env.SITE_URL || 'https://bezbruda.com.ua',
   trailingSlash: 'ignore',
   i18n: {
     defaultLocale,

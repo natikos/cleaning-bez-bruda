@@ -20,6 +20,9 @@ const site = Astro.site ?? new URL(Astro.url.origin);
 const abs = (path: string) => new URL(path, site).href;
 const canonical = abs(homePath(t.lang));
 const ogImage = abs(t.meta.ogImage);
+const robots = import.meta.env.NOINDEX
+  ? 'noindex, nofollow'
+  : 'index, follow, max-image-preview:large';
 const jsonLd = buildStructuredData(t, site, canonical);
 ---
 
@@ -30,7 +33,7 @@ const jsonLd = buildStructuredData(t, site, canonical);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{t.meta.title}</title>
     <meta name="description" content={t.meta.description} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
     {locales.map(l => (
       <link rel="alternate" hreflang={l} href={abs(homePath(l))} />
