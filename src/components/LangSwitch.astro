@@ -1,14 +1,13 @@
 ---
-import { dicts, homePath, locales, toLocale } from '../i18n'
+import { getDict, homePath, locales } from '../i18n'
 
-const current = toLocale(Astro.currentLocale)
-const t = dicts[current]
+const t = getDict(Astro.currentLocale)
 ---
 
 <nav class="lang" aria-label={t.header.langLabel}>
-  {locales.map(l => l === current
-    ? <span class="lang__item lang__item--current" aria-current="page" title={dicts[l].switchName}>{dicts[l].switchLabel}</span>
-    : <a class="lang__item" href={homePath(l)} hreflang={l} lang={l} title={dicts[l].switchName} aria-label={dicts[l].switchName}>{dicts[l].switchLabel}</a>
+  {locales.map(l => l === t.lang
+    ? <span class="lang__item lang__item--current" aria-current="page" title={getDict(l).switchName}>{getDict(l).switchLabel}</span>
+    : <a class="lang__item" href={homePath(l)} hreflang={l} lang={l} title={getDict(l).switchName} aria-label={getDict(l).switchName}>{getDict(l).switchLabel}</a>
   )}
 </nav>
 

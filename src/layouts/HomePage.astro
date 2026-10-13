@@ -12,13 +12,12 @@ import FaqSection from '../components/FaqSection.astro'
 import ContactSection from '../components/ContactSection.astro'
 import AppFooter from '../components/AppFooter.astro'
 import { buildStructuredData } from '../data/structuredData'
-import { defaultLocale, dicts, getDict, homePath, locales, toLocale } from '../i18n'
+import { defaultLocale, getDict, homePath, locales } from '../i18n'
 
-const locale = toLocale(Astro.currentLocale)
-const t = getDict(locale)
+const t = getDict(Astro.currentLocale)
 const site = Astro.site ?? new URL(Astro.url.origin)
 const abs = (path: string) => new URL(path, site).href
-const canonical = abs(homePath(locale))
+const canonical = abs(homePath(t.lang))
 const ogImage = abs(t.meta.ogImage)
 const jsonLd = buildStructuredData(t, site, canonical)
 ---
@@ -41,7 +40,7 @@ const jsonLd = buildStructuredData(t, site, canonical)
     <meta property="og:title" content={t.meta.title} />
     <meta property="og:description" content={t.meta.description} />
     <meta property="og:locale" content={t.ogLocale} />
-    {locales.filter(l => l !== locale).map(l => <meta property="og:locale:alternate" content={dicts[l].ogLocale} />)}
+    {locales.filter(l => l !== t.lang).map(l => <meta property="og:locale:alternate" content={getDict(l).ogLocale} />)}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
@@ -59,7 +58,7 @@ const jsonLd = buildStructuredData(t, site, canonical)
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body>
