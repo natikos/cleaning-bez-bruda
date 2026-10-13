@@ -17,23 +17,27 @@ The dev server runs on `http://localhost:4321`.
 
 ## Scripts
 
-| Command             | Description                      |
-| ------------------- | -------------------------------- |
-| `bun run dev`       | Start the development server     |
-| `bun run build`     | Build the static site to `dist/` |
-| `bun run preview`   | Preview the production build     |
-| `bun run typecheck` | Type-check with `astro check`    |
+| Command                | Description                      |
+| ---------------------- | -------------------------------- |
+| `bun run dev`          | Start the development server     |
+| `bun run build`        | Build the static site to `dist/` |
+| `bun run preview`      | Preview the production build     |
+| `bun run typecheck`    | Type-check with `astro check`    |
+| `bun run format`       | Format the code with Prettier    |
+| `bun run format:check` | Check formatting without writing |
+| `bun run lint`         | Lint with ESLint                 |
+| `bun run lint:fix`     | Lint and auto-fix with ESLint    |
 
 ## Project structure
 
 ```
-src/pages/       Routes: / (Ukrainian), /en/ (English), sitemap.xml, robots.txt
+src/pages/       Routes: / (Ukrainian), /en/ (English), robots.txt
 src/layouts/     HomePage.astro: <head> (SEO meta, hreflang, JSON-LD) and section order
 src/components/  One component per section (header, hero, services, FAQ, ...)
 src/i18n/        All copy: uk.ts (source of truth) and en.ts, plus locale helpers
 src/data/        Contacts, prices and structured data (schema.org) builder
 src/assets/      Photos and logo, optimized to responsive WebP at build time
-src/styles/      Global CSS and hover rules
+src/styles/      Global CSS
 public/          Favicons, app icons, OG images, messenger icons
 ```
 
