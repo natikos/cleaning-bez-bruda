@@ -2,7 +2,8 @@ export const phone = {
   href: 'tel:+380633211898',
   label: '063 321 18 98',
   e164: '+380633211898',
-  intl: '+380 63 321 18 98'
+  intl: '+380 63 321 18 98',
+  icon: '/icons/phone.svg'
 };
 
 // Handle without @; also used for structured data (sameAs)

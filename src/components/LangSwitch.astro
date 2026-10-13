@@ -31,7 +31,7 @@ const t = getDict(Astro.currentLocale);
     flex: none;
     padding: 3px;
     border-radius: 999px;
-    background: var(--grey);
+    background: var(--lang-bg, var(--grey));
     font: 800 13px/1 var(--font-body);
     letter-spacing: 0.04em;
   }
@@ -42,14 +42,14 @@ const t = getDict(Astro.currentLocale);
     height: 38px;
     padding: 0 10px;
     border-radius: 999px;
-    color: var(--grey-text);
+    color: var(--lang-fg, var(--grey-text));
   }
   a.lang__item:hover {
-    color: var(--black);
-    background: var(--white);
+    color: var(--lang-hover-fg, var(--black));
+    background: var(--lang-hover-bg, var(--white));
   }
   .lang__item--current {
-    background: var(--black);
-    color: var(--white);
+    background: var(--lang-current-bg, var(--black));
+    color: var(--lang-current-fg, var(--white));
   }
 </style>

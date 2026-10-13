@@ -1,0 +1,36 @@
+---
+import { phone } from '../data/contacts';
+import { getDict } from '../i18n';
+
+const t = getDict(Astro.currentLocale);
+---
+
+<a class="call-fab" href={phone.href} aria-label={`${t.header.call}: ${phone.label}`}>
+  <img src={phone.icon} alt="" width="24" height="24" />
+</a>
+
+<style>
+  .call-fab {
+    display: none;
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    z-index: 60;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(248, 204, 11, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 2px solid var(--black);
+    box-shadow: 0 10px 28px rgba(11, 11, 11, 0.3);
+    place-items: center;
+    animation: bb-pulse 2.4s infinite;
+  }
+  /* Same breakpoint where the header call button is hidden */
+  @media (max-width: 759px) {
+    .call-fab {
+      display: grid;
+    }
+  }
+</style>

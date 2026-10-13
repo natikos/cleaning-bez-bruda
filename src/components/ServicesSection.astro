@@ -10,23 +10,23 @@ const t = getDict(Astro.currentLocale);
 
 // Visual settings per card; text comes from the dictionary in the same order
 const looks = [
-  { theme: 'grey', img: floor, crop: { x: '45%', y: '55%', zoom: 1 }, tagStyles: [{}, {}] },
+  { theme: 'grey', img: floor, crop: { x: '45%', y: '55%', zoom: 1 }, tagTones: [undefined, undefined] },
   {
     theme: 'yellow',
     img: carpet,
     crop: { x: '48%', y: '27%', zoom: 1.9 },
-    tagStyles: [{ dark: true }, { dark: true }, {}]
+    tagTones: ['dark', 'dark', undefined]
   },
-  { theme: 'black', img: karcher, crop: { x: '38%', y: '80%', zoom: 1.8 }, tagStyles: [{ accent: true }] }
+  { theme: 'black', img: karcher, crop: { x: '38%', y: '80%', zoom: 1.8 }, tagTones: ['accent'] }
 ];
 const services = t.services.items.map((item, i) => {
   const look = looks[i]!;
-  return { ...look, ...item, tags: item.tags.map((label, j) => ({ label, ...look.tagStyles[j] })) };
+  return { ...look, ...item, tags: item.tags.map((label, j) => ({ label, tone: look.tagTones[j] })) };
 });
 ---
 
 <section id={t.ids.services} class="services" aria-labelledby="h-services">
-  <div class="head" data-reveal>
+  <div class="head section-head" data-reveal>
     <SectionBadge icon="sparkle">{t.services.badge}</SectionBadge>
     <h2 id="h-services" class="section-title">
       {t.services.title}
@@ -42,16 +42,18 @@ const services = t.services.items.map((item, i) => {
             alt={s.alt}
             widths={[540, 720, 1080]}
             sizes="(min-width: 1200px) 330px, (min-width: 820px) 30vw, (min-width: 560px) 45vw, calc(100vw - 72px)"
-            style={`object-position:${s.crop.x} ${s.crop.y};transform-origin:${s.crop.x} ${s.crop.y};--zoom:${s.crop.zoom}`}
+            style={{
+              'object-position': `${s.crop.x} ${s.crop.y}`,
+              'transform-origin': `${s.crop.x} ${s.crop.y}`,
+              '--zoom': s.crop.zoom
+            }}
           />
         </div>
         <h3 class="card__title">{s.title}</h3>
         <p class="card__text">{s.text}</p>
         <div class="tags">
-          {s.tags.map(t => (
-            <span class="tag" class:list={{ 'tag--dark': 'dark' in t, 'tag--accent': 'accent' in t }}>
-              {t.label}
-            </span>
+          {s.tags.map(tag => (
+            <span class:list={['tag', tag.tone && `tag--${tag.tone}`]}>{tag.label}</span>
           ))}
         </div>
       </article>
@@ -66,9 +68,6 @@ const services = t.services.items.map((item, i) => {
     padding: var(--section-y) var(--gutter);
   }
   .head {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
     margin-bottom: clamp(28px, 4vw, 48px);
     max-width: 720px;
   }

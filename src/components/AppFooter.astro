@@ -84,20 +84,12 @@ const year = new Date().getFullYear();
     display: flex;
     align-items: center;
     gap: 16px;
-  }
-  .footer__end :global(.lang) {
-    background: #1c1c1c;
-  }
-  .footer__end :global(.lang__item) {
-    color: var(--grey-muted);
-  }
-  .footer__end :global(a.lang__item:hover) {
-    background: #2e2e2e;
-    color: var(--white);
-  }
-  .footer__end :global(.lang__item--current) {
-    background: var(--yellow);
-    color: var(--black);
+    --lang-bg: var(--black-raised);
+    --lang-fg: var(--grey-muted);
+    --lang-hover-bg: var(--black-hover);
+    --lang-hover-fg: var(--white);
+    --lang-current-bg: var(--yellow);
+    --lang-current-fg: var(--black);
   }
   .copyright {
     font: 500 13px/1 var(--font-body);

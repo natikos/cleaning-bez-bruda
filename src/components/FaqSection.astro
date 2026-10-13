@@ -6,7 +6,7 @@ const t = getDict(Astro.currentLocale);
 ---
 
 <section id={t.ids.faq} class="faq" aria-labelledby="h-faq">
-  <div class="head" data-reveal>
+  <div class="head section-head" data-reveal>
     <SectionBadge icon="sparkle">{t.faq.badge}</SectionBadge>
     <h2 id="h-faq" class="section-title">
       {t.faq.title}
@@ -80,13 +80,8 @@ const t = getDict(Astro.currentLocale);
     }
     .head {
       position: sticky;
-      top: 100px;
+      top: calc(var(--header-h) + 34px);
     }
-  }
-  .head {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
   }
 
   .list {
@@ -114,10 +109,6 @@ const t = getDict(Astro.currentLocale);
   }
   .item__q::-webkit-details-marker {
     display: none;
-  }
-  .item__q:focus-visible {
-    outline: 3px solid var(--black);
-    outline-offset: 2px;
   }
   .item__title {
     margin: 0;

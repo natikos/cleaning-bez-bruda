@@ -1,29 +1,19 @@
 ---
 import { Image } from 'astro:assets';
+import SectionBadge from './SectionBadge.astro';
 import logo from '../assets/logo.png';
 import { minPrice } from '../data/prices';
 import { getDict } from '../i18n';
 
 const t = getDict(Astro.currentLocale);
 const bubbles = [
-  { left: '12%', bottom: '18%', size: 22, anim: '7s ease-in' },
-  { left: '26%', bottom: '10%', size: 14, anim: '9s ease-in 1.5s' },
-  { right: '16%', bottom: '22%', size: 30, anim: '8s ease-in 3s' },
-  { right: '30%', bottom: '8%', size: 12, anim: '6s ease-in 2s' },
-  { left: '44%', bottom: '4%', size: 18, anim: '10s ease-in 4.5s' },
-  { right: '8%', bottom: '40%', size: 16, anim: '7.5s ease-in 5s' }
-];
-const bubbleStyle = (b: (typeof bubbles)[number]) =>
-  [
-    b.left && `left:${b.left}`,
-    b.right && `right:${b.right}`,
-    `bottom:${b.bottom}`,
-    `width:${b.size}px`,
-    `height:${b.size}px`,
-    `animation:bb-rise ${b.anim} infinite`
-  ]
-    .filter(Boolean)
-    .join(';');
+  { side: 'left', x: '12%', bottom: '18%', size: 22, duration: 7, delay: 0 },
+  { side: 'left', x: '26%', bottom: '10%', size: 14, duration: 9, delay: 1.5 },
+  { side: 'right', x: '16%', bottom: '22%', size: 30, duration: 8, delay: 3 },
+  { side: 'right', x: '30%', bottom: '8%', size: 12, duration: 6, delay: 2 },
+  { side: 'left', x: '44%', bottom: '4%', size: 18, duration: 10, delay: 4.5 },
+  { side: 'right', x: '8%', bottom: '40%', size: 16, duration: 7.5, delay: 5 }
+] as const;
 ---
 
 <section class="hero" aria-labelledby="h1">
@@ -32,10 +22,9 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
 
   <div class="hero__inner">
     <div class="intro">
-      <h1 id="h1" class="tag">
-        <img class="tag__icon" src="/icons/sparkle.svg" alt="" width="28" height="28" />
+      <SectionBadge as="h1" id="h1" icon="sparkle">
         {t.hero.h1}
-      </h1>
+      </SectionBadge>
       <p class="intro__title">
         <span class="highlight">{t.hero.titleAccent}</span>
         {t.hero.titleRest}
@@ -59,7 +48,16 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
       <div class="visual__stage">
         <div class="bubbles" aria-hidden="true">
           {bubbles.map(b => (
-            <span class="bubble" style={bubbleStyle(b)}></span>
+            <span
+              class="bubble"
+              style={{
+                [b.side]: b.x,
+                bottom: b.bottom,
+                '--size': `${b.size}px`,
+                '--dur': `${b.duration}s`,
+                '--delay': `${b.delay}s`
+              }}
+            />
           ))}
         </div>
         <div class="logo-circle">
@@ -121,23 +119,6 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
     flex-direction: column;
     gap: 22px;
     align-items: flex-start;
-  }
-  .tag {
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--black);
-    color: var(--white);
-    border-radius: 19px;
-    padding: 5px 16px 5px 5px;
-    font: 700 12px/1.3 var(--font-body);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .tag__icon {
-    width: 28px;
-    height: 28px;
   }
   .intro__title {
     margin: 0;
@@ -206,7 +187,7 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
   .visual__stage {
     position: relative;
     aspect-ratio: 1;
-    font-size: clamp(11px, 2.8cqw, 16px);
+    font-size: clamp(13px, 2.8cqw, 16px);
   }
   .bubbles {
     position: absolute;
@@ -216,6 +197,9 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
   }
   .bubble {
     position: absolute;
+    width: var(--size);
+    height: var(--size);
+    animation: bb-rise var(--dur) ease-in var(--delay) infinite backwards;
     border-radius: 50%;
     border: 2px solid var(--blue);
     background: rgba(110, 198, 240, 0.18);

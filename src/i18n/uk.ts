@@ -30,6 +30,7 @@ export const uk = {
     nav: { services: 'Послуги', clients: 'Клієнти', prices: 'Ціни', faq: 'Питання', contacts: 'Контакти' },
     openMenu: 'Відкрити меню',
     closeMenu: 'Закрити меню',
+    call: 'Подзвонити',
     langLabel: 'Мова сайту'
   },
 
@@ -167,8 +168,6 @@ export const uk = {
     legal: 'ФОП Пирожок Яна Пилипівна',
     area: 'Львів і Львівська область'
   },
-
-  callbar: { call: 'Подзвонити', quote: 'Прорахунок' },
 
   schema: {
     city: 'Львів',

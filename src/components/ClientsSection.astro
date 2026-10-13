@@ -1,4 +1,5 @@
 ---
+import SectionBadge from './SectionBadge.astro';
 import { getDict } from '../i18n';
 
 const t = getDict(Astro.currentLocale);
@@ -7,8 +8,8 @@ const t = getDict(Astro.currentLocale);
 <section id={t.ids.clients} class="clients" aria-labelledby="h-clients">
   <div class="clients__shape" aria-hidden="true"></div>
   <div class="clients__inner">
-    <div class="clients__head" data-reveal>
-      <div class="clients__tag">{t.clients.tag}</div>
+    <div class="clients__head section-head" data-reveal>
+      <SectionBadge tone="yellow">{t.clients.tag}</SectionBadge>
       <h2 id="h-clients" class="section-title">
         {t.clients.title}
       </h2>
@@ -16,7 +17,9 @@ const t = getDict(Astro.currentLocale);
     <ul class="list" data-reveal>
       {t.clients.items.map((name, i) => (
         <li class="card">
-          <span class="card__num">{String(i + 1).padStart(2, '0')}</span>
+          <span class="card__num" aria-hidden="true">
+            {String(i + 1).padStart(2, '0')}
+          </span>
           <span class="card__name">{name}</span>
         </li>
       ))}
@@ -50,22 +53,6 @@ const t = getDict(Astro.currentLocale);
     flex-direction: column;
     gap: clamp(24px, 3vw, 36px);
   }
-  .clients__head {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .clients__tag {
-    display: inline-flex;
-    align-self: flex-start;
-    background: var(--yellow);
-    color: var(--black);
-    border-radius: 999px;
-    padding: 9px 16px;
-    font: 800 12px/1 var(--font-body);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
 
   .list {
     list-style: none;
@@ -90,8 +77,8 @@ const t = getDict(Astro.currentLocale);
     min-height: 128px;
     border-radius: 20px;
     padding: clamp(16px, 4vw, 20px);
-    background: #1c1c1c;
-    border: 1px solid #2e2e2e;
+    background: var(--black-raised);
+    border: 1px solid var(--black-hover);
     transition:
       background 0.2s,
       border-color 0.2s;
@@ -101,7 +88,7 @@ const t = getDict(Astro.currentLocale);
     grid-column: span 2;
   }
   .card:hover {
-    background: #262626;
+    background: var(--black-hover);
     border-color: var(--yellow);
   }
   .card__num {

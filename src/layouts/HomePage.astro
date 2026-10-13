@@ -11,6 +11,7 @@ import PricingSection from '../components/PricingSection.astro';
 import FaqSection from '../components/FaqSection.astro';
 import ContactSection from '../components/ContactSection.astro';
 import AppFooter from '../components/AppFooter.astro';
+import CallButton from '../components/CallButton.astro';
 import { buildStructuredData } from '../data/structuredData';
 import { defaultLocale, getDict, homePath, locales } from '../i18n';
 
@@ -79,6 +80,7 @@ const jsonLd = buildStructuredData(t, site, canonical);
       <ContactSection />
     </main>
     <AppFooter />
+    <CallButton />
 
     <script>
       // Reveal-on-scroll for [data-reveal] blocks

@@ -8,7 +8,7 @@ const rows = prices.map(p => ({ name: t.pricing.items[p.key], price: 'price' in 
 ---
 
 <section id={t.ids.prices} class="pricing" aria-labelledby="h-prices">
-  <div class="head" data-reveal>
+  <div class="head section-head" data-reveal>
     <SectionBadge icon="price">{t.pricing.badge}</SectionBadge>
     <h2 id="h-prices" class="section-title">
       {t.pricing.title}
@@ -43,10 +43,6 @@ const rows = prices.map(p => ({ name: t.pricing.items[p.key], price: 'price' in 
     padding: var(--section-y) var(--gutter);
   }
   .head {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
     margin-bottom: clamp(28px, 4vw, 40px);
   }
 

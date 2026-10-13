@@ -1,0 +1,24 @@
+---
+import { messengers } from '../data/contacts';
+---
+
+{messengers.map(m => (
+  <a class="messenger" href={m.href} aria-label={m.name}>
+    <img src={m.icon} alt="" width="20" height="20" />
+  </a>
+))}
+
+<style>
+  .messenger {
+    flex: none;
+    width: var(--messenger-w, 40px);
+    height: var(--messenger-h, 40px);
+    border-radius: var(--messenger-radius, 50%);
+    background: var(--grey);
+    display: grid;
+    place-items: center;
+  }
+  .messenger img {
+    display: block;
+  }
+</style>

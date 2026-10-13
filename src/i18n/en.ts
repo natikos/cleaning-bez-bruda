@@ -31,6 +31,7 @@ export const en: Dict = {
     nav: { services: 'Services', clients: 'Clients', prices: 'Prices', faq: 'FAQ', contacts: 'Contacts' },
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
+    call: 'Call us',
     langLabel: 'Site language'
   },
 
@@ -168,8 +169,6 @@ export const en: Dict = {
     legal: 'Sole proprietor Yana Pyrozhok',
     area: 'Lviv and Lviv Oblast'
   },
-
-  callbar: { call: 'Call', quote: 'Get a quote' },
 
   schema: {
     city: 'Lviv',
