@@ -1,12 +1,12 @@
-import type { Dict } from '../i18n/uk'
-import { instagram, phone } from './contacts'
-import { prices } from './prices'
+import type { Dict } from '../i18n/uk';
+import { instagram, phone } from './contacts';
+import { prices } from './prices';
 
 /** schema.org JSON-LD for the home page: business, website, page and FAQ in one graph. */
 export function buildStructuredData(t: Dict, site: URL, pageUrl: string) {
-  const abs = (path: string) => new URL(path, site).href
-  const businessId = abs('/#business')
-  const websiteId = abs('/#website')
+  const abs = (path: string) => new URL(path, site).href;
+  const businessId = abs('/#business');
+  const websiteId = abs('/#website');
 
   const business = {
     '@type': ['LocalBusiness', 'ProfessionalService'],
@@ -58,7 +58,7 @@ export function buildStructuredData(t: Dict, site: URL, pageUrl: string) {
       }))
     },
     sameAs: [`https://instagram.com/${instagram.handle}`]
-  }
+  };
 
   return {
     '@context': 'https://schema.org',
@@ -94,5 +94,5 @@ export function buildStructuredData(t: Dict, site: URL, pageUrl: string) {
         }))
       }
     ]
-  }
+  };
 }

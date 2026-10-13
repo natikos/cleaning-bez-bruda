@@ -1,14 +1,14 @@
 ---
-import { Image } from 'astro:assets'
-import logo from '../assets/logo.png'
-import { phone, messengers } from '../data/contacts'
-import { getDict } from '../i18n'
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { phone, messengers } from '../data/contacts';
+import { getDict } from '../i18n';
 
-const t = getDict(Astro.currentLocale)
+const t = getDict(Astro.currentLocale);
 const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(key => ({
   href: `#${t.ids[key]}`,
   label: t.header.nav[key]
-}))
+}));
 ---
 
 <header class="header" data-header>
@@ -16,18 +16,27 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     <a class="brand" href="#top" aria-label={t.brand.home}>
       <Image class="brand__logo" src={logo} alt="" width={44} height={44} densities={[1, 2]} loading="eager" />
       <span class="brand__text">
-        <span class="brand__name">{t.brand.first} <span class="accent">{t.brand.accent}</span></span>
+        <span class="brand__name">
+          {t.brand.first} <span class="accent">{t.brand.accent}</span>
+        </span>
         <span class="brand__sub">{t.brand.sub}</span>
       </span>
     </a>
 
     <nav class="nav" id="site-nav" aria-label={t.header.navLabel}>
       <ul class="nav__list">
-        {nav.map(item => <li><a class="nav__link" href={item.href}>{item.label}</a></li>)}
+        {nav.map(item => (
+          <li>
+            <a class="nav__link" href={item.href}>
+              {item.label}
+            </a>
+          </li>
+        ))}
       </ul>
       <div class="nav__extra">
         <a class="nav__call" href={phone.href}>
-          <img src="/icons/phone.svg" alt="" width="18" height="18" />{phone.label}
+          <img src="/icons/phone.svg" alt="" width="18" height="18" />
+          {phone.label}
         </a>
         <div class="nav__messengers">
           {messengers.map(m => (
@@ -67,25 +76,25 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
 </header>
 
 <script>
-  const header = document.querySelector<HTMLElement>('[data-header]')
-  const burger = header?.querySelector<HTMLButtonElement>('.burger')
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const burger = header?.querySelector<HTMLButtonElement>('.burger');
   if (header && burger) {
     const setOpen = (open: boolean) => {
-      header.toggleAttribute('data-open', open)
-      burger.setAttribute('aria-expanded', String(open))
-      burger.setAttribute('aria-label', (open ? burger.dataset.closeLabel : burger.dataset.openLabel) ?? '')
-    }
-    burger.addEventListener('click', () => setOpen(!header.hasAttribute('data-open')))
-    header.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => setOpen(false)))
-    document.addEventListener('keydown', (e) => {
+      header.toggleAttribute('data-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', (open ? burger.dataset.closeLabel : burger.dataset.openLabel) ?? '');
+    };
+    burger.addEventListener('click', () => setOpen(!header.hasAttribute('data-open')));
+    header.querySelectorAll('.nav a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && header.hasAttribute('data-open')) {
-        setOpen(false)
-        burger.focus()
+        setOpen(false);
+        burger.focus();
       }
-    })
-    document.addEventListener('click', (e) => {
-      if (header.hasAttribute('data-open') && !header.contains(e.target as Node)) setOpen(false)
-    })
+    });
+    document.addEventListener('click', e => {
+      if (header.hasAttribute('data-open') && !header.contains(e.target as Node)) setOpen(false);
+    });
   }
 </script>
 
@@ -94,7 +103,7 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(255, 255, 255, .92);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--grey);
@@ -110,7 +119,12 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     gap: 16px;
   }
 
-  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
   .brand__logo {
     flex: none;
     width: 44px;
@@ -119,24 +133,55 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     border-radius: 50%;
     border: 2px solid var(--grey);
   }
-  .brand__text { display: flex; flex-direction: column; line-height: 1; min-width: 0; }
-  .brand__name { font: 800 21px/1 var(--font-display); letter-spacing: -.02em; white-space: nowrap; }
-  .accent { color: var(--yellow); }
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    min-width: 0;
+  }
+  .brand__name {
+    font: 800 21px/1 var(--font-display);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .accent {
+    color: var(--yellow);
+  }
   .brand__sub {
     margin-top: 3px;
     font: 600 10px/1.4 var(--font-body);
-    letter-spacing: .12em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--grey-text);
     white-space: nowrap;
   }
 
-  .nav__list { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; font: 600 15px/1 var(--font-body); }
-  .nav__link { display: block; padding: 8px 0; }
-  .nav__extra { display: none; }
+  .nav__list {
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font: 600 15px/1 var(--font-body);
+  }
+  .nav__link {
+    display: block;
+    padding: 8px 0;
+  }
+  .nav__extra {
+    display: none;
+  }
 
-  .actions { display: flex; align-items: center; gap: 8px; flex: none; }
-  .messengers { display: flex; gap: 8px; }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: none;
+  }
+  .messengers {
+    display: flex;
+    gap: 8px;
+  }
   .messenger {
     flex: none;
     width: 40px;
@@ -146,7 +191,11 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     display: grid;
     place-items: center;
   }
-  .messenger img { width: 20px; height: 20px; display: block; }
+  .messenger img {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
 
   .call {
     display: flex;
@@ -157,10 +206,18 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     border-radius: 999px;
     padding: 11px 18px;
     font: 800 15px/1 var(--font-body);
-    transition: background .2s, transform .2s;
+    transition:
+      background 0.2s,
+      transform 0.2s;
   }
-  .call:hover { background: var(--yellow-dark); color: var(--black); transform: translateY(-1px); }
-  .call span { white-space: nowrap; }
+  .call:hover {
+    background: var(--yellow-dark);
+    color: var(--black);
+    transform: translateY(-1px);
+  }
+  .call span {
+    white-space: nowrap;
+  }
 
   .burger {
     display: none;
@@ -181,27 +238,53 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     height: 2px;
     border-radius: 2px;
     background: var(--black);
-    transition: transform .2s, background .2s;
+    transition:
+      transform 0.2s,
+      background 0.2s;
   }
-  .burger { transition: background .2s; }
-  [data-open] .burger { background: var(--yellow); }
-  .burger__bar { position: relative; }
+  .burger {
+    transition: background 0.2s;
+  }
+  [data-open] .burger {
+    background: var(--yellow);
+  }
+  .burger__bar {
+    position: relative;
+  }
   .burger__bar::before,
-  .burger__bar::after { content: ''; position: absolute; left: 0; }
-  .burger__bar::before { top: -6px; }
-  .burger__bar::after { top: 6px; }
-  [data-open] .burger__bar { background: transparent; }
-  [data-open] .burger__bar::before { transform: translateY(6px) rotate(45deg); }
-  [data-open] .burger__bar::after { transform: translateY(-6px) rotate(-45deg); }
+  .burger__bar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+  .burger__bar::before {
+    top: -6px;
+  }
+  .burger__bar::after {
+    top: 6px;
+  }
+  [data-open] .burger__bar {
+    background: transparent;
+  }
+  [data-open] .burger__bar::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+  [data-open] .burger__bar::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
 
   /* Messenger icons only where there is room for them */
   @media (max-width: 1199px) {
-    .messengers { display: none; }
+    .messengers {
+      display: none;
+    }
   }
 
   /* Below 1024px the nav collapses into a dropdown menu */
   @media (max-width: 1023px) {
-    .burger { display: grid; }
+    .burger {
+      display: grid;
+    }
     .nav {
       display: none;
       position: absolute;
@@ -211,15 +294,31 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
       padding: 4px var(--gutter) 20px;
       background: var(--white);
       border-bottom: 1px solid var(--grey);
-      box-shadow: 0 20px 36px rgba(11, 11, 11, .08);
+      box-shadow: 0 20px 36px rgba(11, 11, 11, 0.08);
       max-height: calc(100dvh - 66px);
       overflow-y: auto;
     }
-    [data-open] .nav { display: block; }
-    .nav__list { flex-direction: column; gap: 0; font: 600 17px/1.2 var(--font-body); }
-    .nav__link { padding: 15px 0; border-bottom: 1px solid var(--grey); }
-    .nav__list li:last-child .nav__link { border-bottom: 0; }
-    .nav__extra { display: flex; flex-direction: column; gap: 12px; padding-top: 8px; }
+    [data-open] .nav {
+      display: block;
+    }
+    .nav__list {
+      flex-direction: column;
+      gap: 0;
+      font: 600 17px/1.2 var(--font-body);
+    }
+    .nav__link {
+      padding: 15px 0;
+      border-bottom: 1px solid var(--grey);
+    }
+    .nav__list li:last-child .nav__link {
+      border-bottom: 0;
+    }
+    .nav__extra {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 8px;
+    }
     .nav__call {
       display: flex;
       align-items: center;
@@ -230,17 +329,35 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
       padding: 14px 18px;
       font: 800 17px/1 var(--font-body);
     }
-    .nav__messengers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-    .messenger { width: auto; height: 46px; border-radius: 14px; }
+    .nav__messengers {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .messenger {
+      width: auto;
+      height: 46px;
+      border-radius: 14px;
+    }
   }
 
   /* On phones the sticky call bar handles calls */
   @media (max-width: 759px) {
-    .call { display: none; }
+    .call {
+      display: none;
+    }
   }
   @media (max-width: 374px) {
-    .brand__name { font-size: 18px; }
-    .brand__sub { font-size: 9px; letter-spacing: .08em; }
-    .brand__logo { width: 40px; height: 40px; }
+    .brand__name {
+      font-size: 18px;
+    }
+    .brand__sub {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+    }
+    .brand__logo {
+      width: 40px;
+      height: 40px;
+    }
   }
 </style>

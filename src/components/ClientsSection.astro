@@ -1,7 +1,7 @@
 ---
-import { getDict } from '../i18n'
+import { getDict } from '../i18n';
 
-const t = getDict(Astro.currentLocale)
+const t = getDict(Astro.currentLocale);
 ---
 
 <section id={t.ids.clients} class="clients" aria-labelledby="h-clients">
@@ -9,7 +9,9 @@ const t = getDict(Astro.currentLocale)
   <div class="clients__inner">
     <div class="clients__head" data-reveal>
       <div class="clients__tag">{t.clients.tag}</div>
-      <h2 id="h-clients" class="section-title">{t.clients.title}</h2>
+      <h2 id="h-clients" class="section-title">
+        {t.clients.title}
+      </h2>
     </div>
     <ul class="list" data-reveal>
       {t.clients.items.map((name, i) => (
@@ -37,7 +39,7 @@ const t = getDict(Astro.currentLocale)
     height: 100%;
     background: var(--yellow);
     clip-path: polygon(60% 0, 100% 0, 40% 100%, 0 100%);
-    opacity: .95;
+    opacity: 0.95;
   }
   .clients__inner {
     position: relative;
@@ -48,7 +50,11 @@ const t = getDict(Astro.currentLocale)
     flex-direction: column;
     gap: clamp(24px, 3vw, 36px);
   }
-  .clients__head { display: flex; flex-direction: column; gap: 16px; }
+  .clients__head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
   .clients__tag {
     display: inline-flex;
     align-self: flex-start;
@@ -57,7 +63,7 @@ const t = getDict(Astro.currentLocale)
     border-radius: 999px;
     padding: 9px 16px;
     font: 800 12px/1 var(--font-body);
-    letter-spacing: .1em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
 
@@ -71,7 +77,9 @@ const t = getDict(Astro.currentLocale)
     max-width: 1000px;
   }
   @media (max-width: 699px) {
-    .list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .card {
@@ -84,11 +92,26 @@ const t = getDict(Astro.currentLocale)
     padding: clamp(16px, 4vw, 20px);
     background: #1c1c1c;
     border: 1px solid #2e2e2e;
-    transition: background .2s, border-color .2s;
+    transition:
+      background 0.2s,
+      border-color 0.2s;
   }
   /* The catch-all last card spans two columns so 7 items fill even rows (4+4 desktop, 2×4 mobile) */
-  .card:last-child { grid-column: span 2; }
-  .card:hover { background: #262626; border-color: var(--yellow); }
-  .card__num { font: 700 13px/1 var(--font-display); color: var(--yellow); }
-  .card__name { font: 700 clamp(15px, 4.2vw, 17px)/1.3 var(--font-body); text-wrap: balance; hyphens: auto; overflow-wrap: break-word; }
+  .card:last-child {
+    grid-column: span 2;
+  }
+  .card:hover {
+    background: #262626;
+    border-color: var(--yellow);
+  }
+  .card__num {
+    font: 700 13px/1 var(--font-display);
+    color: var(--yellow);
+  }
+  .card__name {
+    font: 700 clamp(15px, 4.2vw, 17px)/1.3 var(--font-body);
+    text-wrap: balance;
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
 </style>

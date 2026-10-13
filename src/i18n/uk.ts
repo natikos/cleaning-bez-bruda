@@ -1,5 +1,5 @@
-import { phone } from '../data/contacts'
-import { maxPrice, minPrice } from '../data/prices'
+import { phone } from '../data/contacts';
+import { maxPrice, minPrice } from '../data/prices';
 
 export const uk = {
   lang: 'uk',
@@ -49,7 +49,17 @@ export const uk = {
     unit: 'грн/м²'
   },
 
-  marquee: ['Професійне прибирання', 'Миття підлог', 'Хімчистка ковроліну', 'Клінінг після ремонту', 'Прибирання офісів', 'Підтримуюче прибирання', 'Миття вікон і перегородок', 'Миття санвузлів', 'Комерційні об’єкти'],
+  marquee: [
+    'Професійне прибирання',
+    'Миття підлог',
+    'Хімчистка ковроліну',
+    'Клінінг після ремонту',
+    'Прибирання офісів',
+    'Підтримуюче прибирання',
+    'Миття вікон і перегородок',
+    'Миття санвузлів',
+    'Комерційні об’єкти'
+  ],
 
   services: {
     badge: 'Послуги',
@@ -165,6 +175,6 @@ export const uk = {
     region: 'Львівська область',
     priceRange: `${minPrice}–${maxPrice} грн/м²`
   }
-}
+};
 
-export type Dict = typeof uk
+export type Dict = typeof uk;

@@ -1,13 +1,27 @@
 ---
-import { getDict, homePath, locales } from '../i18n'
+import { getDict, homePath, locales } from '../i18n';
 
-const t = getDict(Astro.currentLocale)
+const t = getDict(Astro.currentLocale);
 ---
 
 <nav class="lang" aria-label={t.header.langLabel}>
-  {locales.map(l => l === t.lang
-    ? <span class="lang__item lang__item--current" aria-current="page" title={getDict(l).switchName}>{getDict(l).switchLabel}</span>
-    : <a class="lang__item" href={homePath(l)} hreflang={l} lang={l} title={getDict(l).switchName} aria-label={getDict(l).switchName}>{getDict(l).switchLabel}</a>
+  {locales.map(l =>
+    l === t.lang ? (
+      <span class="lang__item lang__item--current" aria-current="page" title={getDict(l).switchName}>
+        {getDict(l).switchLabel}
+      </span>
+    ) : (
+      <a
+        class="lang__item"
+        href={homePath(l)}
+        hreflang={l}
+        lang={l}
+        title={getDict(l).switchName}
+        aria-label={getDict(l).switchName}
+      >
+        {getDict(l).switchLabel}
+      </a>
+    )
   )}
 </nav>
 
@@ -19,7 +33,7 @@ const t = getDict(Astro.currentLocale)
     border-radius: 999px;
     background: var(--grey);
     font: 800 13px/1 var(--font-body);
-    letter-spacing: .04em;
+    letter-spacing: 0.04em;
   }
   .lang__item {
     display: grid;
@@ -30,6 +44,12 @@ const t = getDict(Astro.currentLocale)
     border-radius: 999px;
     color: var(--grey-text);
   }
-  a.lang__item:hover { color: var(--black); background: var(--white); }
-  .lang__item--current { background: var(--black); color: var(--white); }
+  a.lang__item:hover {
+    color: var(--black);
+    background: var(--white);
+  }
+  .lang__item--current {
+    background: var(--black);
+    color: var(--white);
+  }
 </style>

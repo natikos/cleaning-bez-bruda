@@ -1,10 +1,10 @@
 ---
-import { Image } from 'astro:assets'
-import logo from '../assets/logo.png'
-import { minPrice } from '../data/prices'
-import { getDict } from '../i18n'
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { minPrice } from '../data/prices';
+import { getDict } from '../i18n';
 
-const t = getDict(Astro.currentLocale)
+const t = getDict(Astro.currentLocale);
 const bubbles = [
   { left: '12%', bottom: '18%', size: 22, anim: '7s ease-in' },
   { left: '26%', bottom: '10%', size: 14, anim: '9s ease-in 1.5s' },
@@ -12,7 +12,7 @@ const bubbles = [
   { right: '30%', bottom: '8%', size: 12, anim: '6s ease-in 2s' },
   { left: '44%', bottom: '4%', size: 18, anim: '10s ease-in 4.5s' },
   { right: '8%', bottom: '40%', size: 16, anim: '7.5s ease-in 5s' }
-]
+];
 const bubbleStyle = (b: (typeof bubbles)[number]) =>
   [
     b.left && `left:${b.left}`,
@@ -21,7 +21,9 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
     `width:${b.size}px`,
     `height:${b.size}px`,
     `animation:bb-rise ${b.anim} infinite`
-  ].filter(Boolean).join(';')
+  ]
+    .filter(Boolean)
+    .join(';');
 ---
 
 <section class="hero" aria-labelledby="h1">
@@ -31,10 +33,12 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
   <div class="hero__inner">
     <div class="intro">
       <h1 id="h1" class="tag">
-        <img class="tag__icon" src="/icons/sparkle.svg" alt="" width="28" height="28" />{t.hero.h1}
+        <img class="tag__icon" src="/icons/sparkle.svg" alt="" width="28" height="28" />
+        {t.hero.h1}
       </h1>
       <p class="intro__title">
-        <span class="highlight">{t.hero.titleAccent}</span>{t.hero.titleRest}
+        <span class="highlight">{t.hero.titleAccent}</span>
+        {t.hero.titleRest}
       </p>
       <p class="intro__text">{t.hero.text}</p>
 
@@ -54,7 +58,9 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
     <div class="visual">
       <div class="visual__stage">
         <div class="bubbles" aria-hidden="true">
-          {bubbles.map(b => <span class="bubble" style={bubbleStyle(b)}></span>)}
+          {bubbles.map(b => (
+            <span class="bubble" style={bubbleStyle(b)}></span>
+          ))}
         </div>
         <div class="logo-circle">
           <Image
@@ -77,8 +83,15 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
 </section>
 
 <style>
-  .hero { position: relative; overflow: hidden; }
-  .hero__shape { position: absolute; top: 0; height: 100%; }
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero__shape {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
   .hero__shape--grey {
     right: 0;
     width: min(58vw, 760px);
@@ -103,7 +116,12 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
   }
 
   /* Left column */
-  .intro { display: flex; flex-direction: column; gap: 22px; align-items: flex-start; }
+  .intro {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    align-items: flex-start;
+  }
   .tag {
     margin: 0;
     display: inline-flex;
@@ -114,14 +132,17 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
     border-radius: 19px;
     padding: 5px 16px 5px 5px;
     font: 700 12px/1.3 var(--font-body);
-    letter-spacing: .1em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
   }
-  .tag__icon { width: 28px; height: 28px; }
+  .tag__icon {
+    width: 28px;
+    height: 28px;
+  }
   .intro__title {
     margin: 0;
     font: 700 clamp(30px, 4.4vw, 56px) / 1.12 var(--font-display);
-    letter-spacing: -.025em;
+    letter-spacing: -0.025em;
   }
   .highlight {
     background: linear-gradient(transparent 58%, var(--yellow) 58%, var(--yellow) 92%, transparent 92%);
@@ -145,44 +166,78 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
     align-self: stretch;
   }
   @media (max-width: 479px) {
-    .facts { grid-template-columns: 1fr; }
+    .facts {
+      grid-template-columns: 1fr;
+    }
   }
   .fact {
     display: flex;
     align-items: center;
-    gap: .8em;
+    gap: 0.8em;
     background: var(--white);
     border-radius: 1.3em;
-    padding: .9em 1.2em;
-    box-shadow: 0 16px 40px rgba(11, 11, 11, .14);
+    padding: 0.9em 1.2em;
+    box-shadow: 0 16px 40px rgba(11, 11, 11, 0.14);
   }
-  .fact__icon { flex: none; width: 2.2em; height: 2.2em; }
-  .fact__body { display: flex; flex-direction: column; gap: .25em; }
-  .fact__title { font: 800 1.15em/1.2 var(--font-body); }
-  .fact__sub { font: 500 .85em/1.2 var(--font-body); color: var(--grey-text); }
+  .fact__icon {
+    flex: none;
+    width: 2.2em;
+    height: 2.2em;
+  }
+  .fact__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+  }
+  .fact__title {
+    font: 800 1.15em/1.2 var(--font-body);
+  }
+  .fact__sub {
+    font: 500 0.85em/1.2 var(--font-body);
+    color: var(--grey-text);
+  }
 
   /* Right column */
-  .visual { container-type: inline-size; width: min(100%, 600px); justify-self: center; }
-  .visual__stage { position: relative; aspect-ratio: 1; font-size: clamp(11px, 2.8cqw, 16px); }
-  .bubbles { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+  .visual {
+    container-type: inline-size;
+    width: min(100%, 600px);
+    justify-self: center;
+  }
+  .visual__stage {
+    position: relative;
+    aspect-ratio: 1;
+    font-size: clamp(11px, 2.8cqw, 16px);
+  }
+  .bubbles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
   .bubble {
     position: absolute;
     border-radius: 50%;
     border: 2px solid var(--blue);
-    background: rgba(110, 198, 240, .18);
+    background: rgba(110, 198, 240, 0.18);
   }
   .logo-circle {
     position: absolute;
     inset: 11%;
     border-radius: 50%;
     background: var(--white);
-    box-shadow: 0 30px 80px rgba(11, 11, 11, .12), 0 0 0 12px rgba(255, 255, 255, .7);
+    box-shadow:
+      0 30px 80px rgba(11, 11, 11, 0.12),
+      0 0 0 12px rgba(255, 255, 255, 0.7);
     display: grid;
     place-items: center;
     overflow: hidden;
     animation: bb-float 6s ease-in-out infinite;
   }
-  .logo-circle img { width: 72%; height: 72%; object-fit: contain; }
+  .logo-circle img {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+  }
 
   .price-badge {
     position: absolute;
@@ -192,17 +247,23 @@ const bubbleStyle = (b: (typeof bubbles)[number]) =>
     aspect-ratio: 1;
     border-radius: 50%;
     background: var(--yellow);
-    border: .3em solid var(--white);
-    box-shadow: 0 16px 40px rgba(11, 11, 11, .18);
+    border: 0.3em solid var(--white);
+    box-shadow: 0 16px 40px rgba(11, 11, 11, 0.18);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: .2em;
+    gap: 0.2em;
     transform: rotate(8deg);
     z-index: 3;
   }
-  .price-badge__from { font: 600 .9em/1 var(--font-body); }
-  .price-badge__value { font: 800 2.2em/1 var(--font-display); }
-  .price-badge__unit { font: 700 .9em/1 var(--font-body); }
+  .price-badge__from {
+    font: 600 0.9em/1 var(--font-body);
+  }
+  .price-badge__value {
+    font: 800 2.2em/1 var(--font-display);
+  }
+  .price-badge__unit {
+    font: 700 0.9em/1 var(--font-body);
+  }
 </style>

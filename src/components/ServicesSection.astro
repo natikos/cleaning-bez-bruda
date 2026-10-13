@@ -1,29 +1,36 @@
 ---
-import { Image } from 'astro:assets'
-import SectionBadge from './SectionBadge.astro'
-import floor from '../assets/floor.jpg'
-import carpet from '../assets/carpet.jpg'
-import karcher from '../assets/karcher.jpg'
-import { getDict } from '../i18n'
+import { Image } from 'astro:assets';
+import SectionBadge from './SectionBadge.astro';
+import floor from '../assets/floor.jpg';
+import carpet from '../assets/carpet.jpg';
+import karcher from '../assets/karcher.jpg';
+import { getDict } from '../i18n';
 
-const t = getDict(Astro.currentLocale)
+const t = getDict(Astro.currentLocale);
 
 // Visual settings per card; text comes from the dictionary in the same order
 const looks = [
   { theme: 'grey', img: floor, crop: { x: '45%', y: '55%', zoom: 1 }, tagStyles: [{}, {}] },
-  { theme: 'yellow', img: carpet, crop: { x: '48%', y: '27%', zoom: 1.9 }, tagStyles: [{ dark: true }, { dark: true }, {}] },
+  {
+    theme: 'yellow',
+    img: carpet,
+    crop: { x: '48%', y: '27%', zoom: 1.9 },
+    tagStyles: [{ dark: true }, { dark: true }, {}]
+  },
   { theme: 'black', img: karcher, crop: { x: '38%', y: '80%', zoom: 1.8 }, tagStyles: [{ accent: true }] }
-]
+];
 const services = t.services.items.map((item, i) => {
-  const look = looks[i]!
-  return { ...look, ...item, tags: item.tags.map((label, j) => ({ label, ...look.tagStyles[j] })) }
-})
+  const look = looks[i]!;
+  return { ...look, ...item, tags: item.tags.map((label, j) => ({ label, ...look.tagStyles[j] })) };
+});
 ---
 
 <section id={t.ids.services} class="services" aria-labelledby="h-services">
   <div class="head" data-reveal>
     <SectionBadge icon="sparkle">{t.services.badge}</SectionBadge>
-    <h2 id="h-services" class="section-title">{t.services.title}</h2>
+    <h2 id="h-services" class="section-title">
+      {t.services.title}
+    </h2>
   </div>
   <div class="grid">
     {services.map(s => (
@@ -42,7 +49,9 @@ const services = t.services.items.map((item, i) => {
         <p class="card__text">{s.text}</p>
         <div class="tags">
           {s.tags.map(t => (
-            <span class="tag" class:list={{ 'tag--dark': 'dark' in t, 'tag--accent': 'accent' in t }}>{t.label}</span>
+            <span class="tag" class:list={{ 'tag--dark': 'dark' in t, 'tag--accent': 'accent' in t }}>
+              {t.label}
+            </span>
           ))}
         </div>
       </article>
@@ -75,13 +84,27 @@ const services = t.services.items.map((item, i) => {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    transition: transform .3s, box-shadow .3s;
+    transition:
+      transform 0.3s,
+      box-shadow 0.3s;
   }
-  .card:hover { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(11, 11, 11, .1); }
-  .card--grey { background: var(--grey); }
-  .card--yellow { background: var(--yellow-soft); }
-  .card--black { background: var(--black); color: var(--white); }
-  .card--black:hover { box-shadow: 0 24px 50px rgba(11, 11, 11, .18); }
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 24px 50px rgba(11, 11, 11, 0.1);
+  }
+  .card--grey {
+    background: var(--grey);
+  }
+  .card--yellow {
+    background: var(--yellow-soft);
+  }
+  .card--black {
+    background: var(--black);
+    color: var(--white);
+  }
+  .card--black:hover {
+    box-shadow: 0 24px 50px rgba(11, 11, 11, 0.18);
+  }
 
   /* Same photoshoot on every card, so each one gets its own framing: full scene, face close-up, machine detail */
   .card__media {
@@ -95,13 +118,15 @@ const services = t.services.items.map((item, i) => {
     object-fit: cover;
     display: block;
     transform: scale(var(--zoom, 1));
-    transition: transform .6s;
+    transition: transform 0.6s;
   }
-  .card:hover .card__img { transform: scale(calc(var(--zoom, 1) * 1.05)); }
+  .card:hover .card__img {
+    transform: scale(calc(var(--zoom, 1) * 1.05));
+  }
   .card__title {
     margin: 0;
     font: 700 clamp(20px, 2.2vw, 26px) / 1.2 var(--font-display);
-    letter-spacing: -.015em;
+    letter-spacing: -0.015em;
   }
   .card__text {
     margin: 0;
@@ -109,9 +134,16 @@ const services = t.services.items.map((item, i) => {
     color: var(--grey-text);
     text-wrap: pretty;
   }
-  .card--black .card__text { color: var(--grey-muted); }
+  .card--black .card__text {
+    color: var(--grey-muted);
+  }
 
-  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: auto;
+  }
   .tag {
     background: var(--white);
     border-radius: 999px;
@@ -119,6 +151,12 @@ const services = t.services.items.map((item, i) => {
     padding: 8px 14px;
     font: 700 13px/1 var(--font-body);
   }
-  .tag--dark { background: var(--black); color: var(--white); }
-  .tag--accent { background: var(--yellow); color: var(--black); }
+  .tag--dark {
+    background: var(--black);
+    color: var(--white);
+  }
+  .tag--accent {
+    background: var(--yellow);
+    color: var(--black);
+  }
 </style>

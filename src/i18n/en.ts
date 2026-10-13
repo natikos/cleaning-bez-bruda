@@ -1,6 +1,6 @@
-import { phone } from '../data/contacts'
-import { maxPrice, minPrice } from '../data/prices'
-import type { Dict } from './uk'
+import { phone } from '../data/contacts';
+import { maxPrice, minPrice } from '../data/prices';
+import type { Dict } from './uk';
 
 export const en: Dict = {
   lang: 'en',
@@ -50,7 +50,17 @@ export const en: Dict = {
     unit: 'UAH/m²'
   },
 
-  marquee: ['Professional cleaning', 'Floor washing', 'Carpet cleaning', 'Post-renovation cleaning', 'Office cleaning', 'Maintenance cleaning', 'Window & glass partition cleaning', 'Restroom cleaning', 'Commercial properties'],
+  marquee: [
+    'Professional cleaning',
+    'Floor washing',
+    'Carpet cleaning',
+    'Post-renovation cleaning',
+    'Office cleaning',
+    'Maintenance cleaning',
+    'Window & glass partition cleaning',
+    'Restroom cleaning',
+    'Commercial properties'
+  ],
 
   services: {
     badge: 'Services',
@@ -166,4 +176,4 @@ export const en: Dict = {
     region: 'Lviv Oblast',
     priceRange: `${minPrice}–${maxPrice} UAH/m²`
   }
-}
+};

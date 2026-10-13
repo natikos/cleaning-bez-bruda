@@ -6,8 +6,8 @@ export const prices = [
   { key: 'floors' },
   { key: 'carpet' },
   { key: 'restrooms' }
-] as const satisfies readonly { key: string, price?: number }[]
+] as const satisfies readonly { key: string; price?: number }[];
 
-const fixed = prices.flatMap(p => ('price' in p ? [p.price] : []))
-export const minPrice = Math.min(...fixed)
-export const maxPrice = Math.max(...fixed)
+const fixed = prices.flatMap(p => ('price' in p ? [p.price] : []));
+export const minPrice = Math.min(...fixed);
+export const maxPrice = Math.max(...fixed);

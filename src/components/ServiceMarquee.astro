@@ -1,14 +1,17 @@
 ---
-import { getDict } from '../i18n'
+import { getDict } from '../i18n';
 
-const items = getDict(Astro.currentLocale).marquee
-const marquee = [...items, ...items]
+const items = getDict(Astro.currentLocale).marquee;
+const marquee = [...items, ...items];
 ---
 
 <div class="marquee" aria-hidden="true">
   <div class="marquee__track">
     {marquee.map(m => (
-      <span class="marquee__item">{m}<span class="marquee__dot"></span></span>
+      <span class="marquee__item">
+        {m}
+        <span class="marquee__dot"></span>
+      </span>
     ))}
   </div>
 </div>

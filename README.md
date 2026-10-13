@@ -17,12 +17,12 @@ The dev server runs on `http://localhost:4321`.
 
 ## Scripts
 
-| Command             | Description                       |
-| ------------------- | --------------------------------- |
-| `bun run dev`       | Start the development server      |
-| `bun run build`     | Build the static site to `dist/`  |
-| `bun run preview`   | Preview the production build      |
-| `bun run typecheck` | Type-check with `astro check`     |
+| Command             | Description                      |
+| ------------------- | -------------------------------- |
+| `bun run dev`       | Start the development server     |
+| `bun run build`     | Build the static site to `dist/` |
+| `bun run preview`   | Preview the production build     |
+| `bun run typecheck` | Type-check with `astro check`    |
 
 ## Project structure
 

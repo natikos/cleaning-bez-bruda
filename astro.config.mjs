@@ -1,6 +1,6 @@
-import { defineConfig } from 'astro/config'
-import sitemap from '@astrojs/sitemap'
-import { defaultLocale, locales } from './src/i18n/config.ts'
+import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
+import { defaultLocale, locales } from './src/i18n/config.ts';
 
 export default defineConfig({
   // Production URL: used for canonical links, hreflang, Open Graph, sitemap and robots.txt.
@@ -12,7 +12,5 @@ export default defineConfig({
     locales: [...locales],
     routing: { prefixDefaultLocale: false }
   },
-  integrations: [
-    sitemap({ i18n: { defaultLocale, locales: { uk: 'uk', en: 'en' } } })
-  ]
-})
+  integrations: [sitemap({ i18n: { defaultLocale, locales: { uk: 'uk', en: 'en' } } })]
+});
