@@ -7,5 +7,5 @@ export const messengers = [
   { name: 'WhatsApp', href: 'https://wa.me/380633211898', icon: '/icons/whatsapp.svg' },
   { name: 'Viber', href: 'viber://chat?number=%2B380633211898', icon: '/icons/viber.svg' },
   { name: 'Telegram', href: 'https://t.me/+380633211898', icon: '/icons/telegram.svg' },
-  ...(instagram.handle ? [{ name: 'Instagram', href: `https://instagram.com/${instagram.handle}`, icon: '/icons/instagram.svg' }] : [])
+  { name: 'Instagram', href: `https://instagram.com/${instagram.handle}`, icon: '/icons/instagram.svg' }
 ]

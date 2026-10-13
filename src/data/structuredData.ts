@@ -15,9 +15,9 @@ export function buildStructuredData(t: Dict, site: URL, pageUrl: string) {
     alternateName: ['Без бруда', 'Bez Bruda', 'Bez bruda'].filter(n => n !== t.brand.name),
     slogan: t.brand.tagline,
     description: t.meta.description,
-    url: pageUrl,
+    url: abs('/'),
     logo: abs('/logo.png'),
-    image: [abs(t.meta.ogImage), abs('/logo.png')],
+    image: abs(t.meta.ogImage),
     telephone: phone.e164,
     priceRange: t.schema.priceRange,
     currenciesAccepted: 'UAH',
@@ -57,7 +57,7 @@ export function buildStructuredData(t: Dict, site: URL, pageUrl: string) {
         })
       }))
     },
-    ...(instagram.handle && { sameAs: [`https://instagram.com/${instagram.handle}`] })
+    sameAs: [`https://instagram.com/${instagram.handle}`]
   }
 
   return {
