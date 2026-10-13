@@ -2,8 +2,8 @@
 import { Image } from 'astro:assets';
 import SectionBadge from './SectionBadge.astro';
 import floor from '../assets/floor.jpg';
-import carpet from '../assets/carpet.jpg';
-import karcher from '../assets/karcher.jpg';
+import carpet from '../assets/carpet-pad.jpg';
+import equipment from '../assets/equipment.jpg';
 import { getDict } from '../i18n';
 
 const t = getDict(Astro.currentLocale);
@@ -14,10 +14,10 @@ const looks = [
   {
     theme: 'yellow',
     img: carpet,
-    crop: { x: '48%', y: '27%', zoom: 1.9 },
+    crop: { x: '45%', y: '50%', zoom: 1 },
     tagTones: ['dark', 'dark', undefined]
   },
-  { theme: 'black', img: karcher, crop: { x: '38%', y: '80%', zoom: 1.8 }, tagTones: ['accent'] }
+  { theme: 'black', img: equipment, crop: { x: '45%', y: '50%', zoom: 1 }, tagTones: ['accent'] }
 ];
 const services = t.services.items.map((item, i) => {
   const look = looks[i]!;

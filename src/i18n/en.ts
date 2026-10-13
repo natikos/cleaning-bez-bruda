@@ -74,7 +74,7 @@ export const en: Dict = {
         tags: ['Specialised equipment', 'Professional chemicals']
       },
       {
-        alt: 'Carpet cleaning in an office',
+        alt: 'Yana preparing a professional machine with a pad for carpet cleaning in an office',
         title: 'Carpet cleaning',
         text: 'Deep cleaning of carpets and textile floor coverings to remove dirt, stains and unpleasant odours. Dry or wet method, depending on your carpet.',
         tags: ['Dry', 'Wet', 'Stains & odours']
