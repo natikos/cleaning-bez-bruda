@@ -99,23 +99,23 @@ a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
   html {
     scroll-behavior: auto;
   }
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 3px solid var(--yellow);
-  outline-offset: 1px;
-}
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid var(--black);
   outline-offset: 3px;
 }
