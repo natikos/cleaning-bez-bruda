@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#F8CC0B" stroke="#F8CC0B" stroke-width="1" stroke-linejoin="round">
+  <style>
+    .s { transform-box: fill-box; transform-origin: center; animation: twinkle 2.4s ease-in-out infinite; }
+    .s2 { animation-delay: .8s; }
+    .s3 { animation-delay: 1.6s; }
+    @keyframes twinkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(.5) rotate(25deg); opacity: .55; }
+    }
+    @media (prefers-reduced-motion: reduce) { .s { animation: none; } }
+  </style>
+  <path class="s" d="M10 6c.7 4.6 2.4 6.3 7 7-4.6.7-6.3 2.4-7 7-.7-4.6-2.4-6.3-7-7 4.6-.7 6.3-2.4 7-7z"/>
+  <path class="s s2" d="M19 2c.35 2.3 1.2 3.150 3.5 3.5-2.3.35-3.150 1.2-3.5 3.5-.35-2.3-1.2-3.150-3.5-3.5C17.8 5.150 18.650 4.3 19 2z"/>
+  <path class="s s3" d="M19.5 15c.25 1.6.85 2.2 2.5 2.5-1.650.3-2.250.9-2.5 2.5-.25-1.6-.85-2.2-2.5-2.5 1.650-.3 2.250-.9 2.5-2.5z"/>
+</svg>

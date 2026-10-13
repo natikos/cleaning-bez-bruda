@@ -1,0 +1,36 @@
+---
+import { dicts, homePath, locales, toLocale } from '../i18n'
+
+const current = toLocale(Astro.currentLocale)
+const t = dicts[current]
+---
+
+<nav class="lang" aria-label={t.header.langLabel}>
+  {locales.map(l => l === current
+    ? <span class="lang__item lang__item--current" aria-current="page" title={dicts[l].switchName}>{dicts[l].switchLabel}</span>
+    : <a class="lang__item" href={homePath(l)} hreflang={l} lang={l} title={dicts[l].switchName} aria-label={dicts[l].switchName}>{dicts[l].switchLabel}</a>
+  )}
+</nav>
+
+<style>
+  .lang {
+    display: flex;
+    flex: none;
+    padding: 3px;
+    border-radius: 999px;
+    background: var(--grey);
+    font: 800 13px/1 var(--font-body);
+    letter-spacing: .04em;
+  }
+  .lang__item {
+    display: grid;
+    place-items: center;
+    min-width: 40px;
+    height: 38px;
+    padding: 0 10px;
+    border-radius: 999px;
+    color: var(--grey-text);
+  }
+  a.lang__item:hover { color: var(--black); background: var(--white); }
+  .lang__item--current { background: var(--black); color: var(--white); }
+</style>

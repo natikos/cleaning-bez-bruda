@@ -1,0 +1,48 @@
+---
+import { getDict } from '../i18n'
+
+const items = getDict(Astro.currentLocale).marquee
+const marquee = [...items, ...items]
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {marquee.map(m => (
+      <span class="marquee__item">{m}<span class="marquee__dot"></span></span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .marquee {
+    background: var(--black);
+    color: var(--white);
+    overflow: hidden;
+    padding: 18px 0;
+    transform: skewY(-1.5deg);
+    margin: -1.4vw 0 10px;
+    position: relative;
+    z-index: 1;
+    border-top: 4px solid var(--yellow);
+  }
+  .marquee__track {
+    display: flex;
+    width: max-content;
+    animation: bb-marquee 34s linear infinite;
+  }
+  .marquee__item {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0 22px;
+    font: 700 clamp(15px, 1.6vw, 19px) / 1 var(--font-display);
+    white-space: nowrap;
+  }
+  .marquee__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--yellow);
+    flex: none;
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets'
+import logo from '../assets/logo.png'
+import LangSwitch from './LangSwitch.astro'
+import { getDict } from '../i18n'
+
+const t = getDict(Astro.currentLocale)
+const year = new Date().getFullYear()
+---
+
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="brand">
+      <Image class="brand__logo" src={logo} alt="" width={48} height={48} densities={[1, 2]} />
+      <div class="brand__text">
+        <span class="brand__name">{t.brand.first} <span class="accent">{t.brand.accent}</span></span>
+        <span class="brand__tagline">{t.brand.tagline}</span>
+      </div>
+    </div>
+    <p class="legal">{t.footer.legal}<br />{t.footer.area}</p>
+    <div class="footer__end">
+      <LangSwitch />
+      <span class="copyright">© {year} {t.brand.name}</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--black); color: var(--white); }
+  .footer__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 32px var(--gutter);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px 32px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand__logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 3px var(--blue);
+  }
+  .brand__text { display: flex; flex-direction: column; gap: 4px; }
+  .brand__name { font: 800 22px/1 var(--font-display); }
+  .accent { color: var(--yellow); }
+  .brand__tagline { font: 600 13px/1 var(--font-body); color: var(--grey-muted); }
+  .legal { margin: 0; font: 500 13px/1.6 var(--font-body); color: var(--grey-muted); }
+  .footer__end { display: flex; align-items: center; gap: 16px; }
+  .footer__end :global(.lang) { background: #1c1c1c; }
+  .footer__end :global(.lang__item) { color: var(--grey-muted); }
+  .footer__end :global(a.lang__item:hover) { background: #2e2e2e; color: var(--white); }
+  .footer__end :global(.lang__item--current) { background: var(--yellow); color: var(--black); }
+  .copyright { font: 500 13px/1 var(--font-body); color: var(--grey-muted); }
+  @media (max-width: 759px) {
+    .footer__inner { flex-direction: column; align-items: center; text-align: center; }
+    .footer__end { flex-direction: column; gap: 14px; }
+  }
+</style>

@@ -1,0 +1,103 @@
+---
+import SectionBadge from './SectionBadge.astro'
+import { prices } from '../data/prices'
+import { getDict } from '../i18n'
+
+const t = getDict(Astro.currentLocale)
+const rows = prices.map(p => ({ name: t.pricing.items[p.key], price: 'price' in p ? p.price : undefined }))
+---
+
+<section id={t.ids.prices} class="pricing" aria-labelledby="h-prices">
+  <div class="head" data-reveal>
+    <SectionBadge icon="price">{t.pricing.badge}</SectionBadge>
+    <h2 id="h-prices" class="section-title">{t.pricing.title}</h2>
+  </div>
+
+  <div class="panel" data-reveal>
+    <h3 class="panel__title">{t.pricing.panelTitle}</h3>
+    <ul class="rows">
+      {rows.map(p => (
+        <li class="row">
+          <span class="row__name">{p.name}</span>
+          {p.price
+            ? <span class="price"><span class="price__value">{p.price}</span><span class="price__unit">{t.pricing.unit}</span></span>
+            : <span class="on-request">{t.pricing.onRequest}</span>}
+        </li>
+      ))}
+    </ul>
+    <p class="note">{t.pricing.note}</p>
+  </div>
+</section>
+
+<style>
+  .pricing {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--section-y) var(--gutter);
+  }
+  .head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: clamp(28px, 4vw, 40px);
+  }
+
+  .panel {
+    background: var(--grey);
+    border-radius: 28px;
+    padding: clamp(20px, 3vw, 28px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .panel__title { margin: 0; font: 700 clamp(17px, 1.8vw, 20px) / 1.25 var(--font-display); }
+
+  .rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+    gap: 8px;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--white);
+    border-radius: 18px;
+    padding: 12px 12px 12px clamp(14px, 4vw, 18px);
+    transition: transform .2s;
+  }
+  .row:hover { transform: translateX(4px); }
+  .row__name { font: 700 clamp(15px, 4.2vw, 16px)/1.3 var(--font-body); min-width: 0; overflow-wrap: break-word; hyphens: auto; }
+
+  .price {
+    flex: none;
+    background: var(--yellow);
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .price__value { font: 800 24px/1 var(--font-display); }
+  .price__unit { font: 700 12px/1 var(--font-body); }
+  .on-request {
+    flex: none;
+    border: 1.5px dashed var(--grey-muted);
+    border-radius: 12px;
+    padding: 11px 12px;
+    font: 700 13px/1 var(--font-body);
+    color: var(--grey-text);
+  }
+
+  .note {
+    margin: 0;
+    padding: 4px 4px 0;
+    font: 600 14px/1.5 var(--font-body);
+    color: var(--grey-text);
+  }
+</style>

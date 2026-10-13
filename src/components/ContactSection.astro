@@ -1,0 +1,201 @@
+---
+import { Image } from 'astro:assets'
+import SectionBadge from './SectionBadge.astro'
+import yana from '../assets/yana.jpg'
+import { phone, messengers } from '../data/contacts'
+import { getDict } from '../i18n'
+
+const t = getDict(Astro.currentLocale)
+---
+
+<section id={t.ids.contacts} class="contact" aria-labelledby="h-contacts">
+  <div class="contact__inner">
+    <div class="content" data-reveal>
+      <SectionBadge icon="sparkle">{t.contact.badge}</SectionBadge>
+      <h2 id="h-contacts" class="section-title">{t.contact.title}</h2>
+      <p class="lead">{t.contact.lead}</p>
+
+      <a class="phone" href={phone.href}>
+        <span class="phone__icon">
+          <img src="/icons/phone.svg" alt="" width="22" height="22" />
+        </span>
+        <span class="phone__text">
+          <span class="phone__label">{t.contact.phoneLabel}</span>
+          <span class="phone__number">{phone.label}</span>
+        </span>
+      </a>
+
+      <div class="messengers">
+        {messengers.map(m => (
+          <a class="messenger" href={m.href}>
+            <img src={m.icon} alt="" width="20" height="20" />{m.name}
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <figure class="owner" data-reveal>
+      <Image
+        class="owner__photo"
+        src={yana}
+        alt={t.contact.ownerAlt}
+        widths={[540, 720, 1080, 1333]}
+        sizes="(min-width: 900px) 46vw, 100vw"
+      />
+      <figcaption class="owner__caption">
+        <span class="owner__role">{t.contact.ownerRole}</span>
+        <span class="owner__name">{t.contact.ownerName}</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<style>
+  .contact { background: var(--yellow); position: relative; overflow: hidden; }
+  .contact__inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--section-y) var(--gutter);
+    padding-bottom: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .content { padding-bottom: var(--section-y); }
+  @media (min-width: 900px) {
+    .content { max-width: 46%; }
+  }
+  /* on narrow screens the photo follows the buttons, so the text needs no bottom padding */
+  @media (max-width: 899px) {
+    .content { padding-bottom: 0; }
+  }
+  .content { display: flex; flex-direction: column; gap: 20px; }
+  .lead {
+    margin: 0;
+    max-width: 480px;
+    font: 600 17px/1.6 var(--font-body);
+    text-wrap: pretty;
+  }
+
+  .phone {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    align-self: flex-start;
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 22px;
+    padding: 16px 22px 16px 16px;
+    transition: transform .2s;
+  }
+  .phone:hover { transform: translateY(-3px); color: var(--white); }
+  .phone__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--black);
+    display: grid;
+    place-items: center;
+    animation: bb-pulse 2.4s infinite;
+  }
+  .phone__text { display: flex; flex-direction: column; gap: 4px; }
+  .phone__label {
+    font: 600 12px/1 var(--font-body);
+    color: var(--grey-muted);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .phone__number { font: 800 clamp(20px, 2.4vw, 26px) / 1 var(--font-display); }
+
+  .messengers {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-width: 420px;
+  }
+  .messenger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--white);
+    color: var(--black);
+    border-radius: 999px;
+    padding: 12px 18px;
+    font: 800 15px/1 var(--font-body);
+    transition: transform .2s;
+  }
+  .messenger:hover { transform: translateY(-2px); color: var(--black); }
+  .messenger img { width: 20px; height: 20px; display: block; }
+
+  /* Photo bleeds off the section edge; its left side is cut on the diagonal */
+  .owner {
+    position: relative;
+    margin: 8px calc(var(--gutter) * -1) 0;
+  }
+  .owner__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    height: auto;
+    object-fit: cover;
+    object-position: 50% 25%;
+    clip-path: polygon(0 7%, 100% 0, 100% 100%, 0 100%);
+  }
+  @media (min-width: 900px) {
+    .owner {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(46%, 620px); /* capped so wide screens don't zoom the photo in */
+      margin: 0;
+    }
+    /* Section height differs per language, so anchor the photo to the top and shift it up by a fixed
+       share of its own width: the head then stays in the same place whatever the height is */
+    .owner { container-type: size; overflow: hidden; }
+    .owner__photo {
+      position: absolute;
+      top: -10cqw;
+      left: 0;
+      height: calc(100% + 10cqw);
+      aspect-ratio: auto;
+      object-position: 50% 0;
+      clip-path: polygon(16% 0, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+  .owner__caption {
+    position: absolute;
+    right: 12px;
+    top: 6%;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--black);
+    color: var(--white);
+    border-radius: 16px;
+    padding: 12px 16px;
+    box-shadow: 0 14px 30px rgba(11, 11, 11, .25);
+  }
+  @media (min-width: 900px) {
+    .owner__caption { right: 6%; top: 10%; }
+  }
+  .owner__role {
+    font: 600 11px/1 var(--font-body);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+  .owner__name { font: 800 15px/1.3 var(--font-body); }
+  @media (max-width: 899px) {
+    .owner__caption { padding: 9px 12px; border-radius: 14px; }
+    .owner__name { font-size: 13px; }
+  }
+  @media (max-width: 899px) {
+    .owner__name { font-size: 14px; }
+  }
+</style>

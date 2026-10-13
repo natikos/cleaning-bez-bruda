@@ -1,0 +1,126 @@
+---
+import SectionBadge from './SectionBadge.astro'
+import { getDict } from '../i18n'
+
+const t = getDict(Astro.currentLocale)
+---
+
+<section id={t.ids.faq} class="faq" aria-labelledby="h-faq">
+  <div class="head" data-reveal>
+    <SectionBadge icon="sparkle">{t.faq.badge}</SectionBadge>
+    <h2 id="h-faq" class="section-title">{t.faq.title}</h2>
+  </div>
+  <div class="list" data-reveal>
+    {t.faq.items.map(item => (
+      <details class="item">
+        <summary class="item__q">
+          <h3 class="item__title">{item.q}</h3>
+          <span class="item__icon" aria-hidden="true"></span>
+        </summary>
+        <p class="item__a">{item.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<script>
+  // Animate <details> open/close; native toggling stays as the no-JS / reduced-motion fallback
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)')
+  document.querySelectorAll<HTMLDetailsElement>('.faq .item').forEach((item) => {
+    const summary = item.querySelector('summary')
+    const answer = item.querySelector<HTMLElement>('.item__a')
+    if (!summary || !answer) return
+    let anim: Animation | null = null
+
+    summary.addEventListener('click', (e) => {
+      if (reduceMotion.matches) return
+      e.preventDefault()
+      const from = item.offsetHeight
+      anim?.cancel()
+      const opening = !item.open || item.classList.contains('is-closing')
+      item.open = true
+      const to = opening ? item.offsetHeight : summary.offsetHeight
+      item.classList.toggle('is-closing', !opening)
+      item.style.overflow = 'hidden'
+
+      anim = item.animate({ height: [`${from}px`, `${to}px`] }, { duration: 280, easing: 'cubic-bezier(.2, .7, .3, 1)' })
+      if (opening) answer.animate({ opacity: [0, 1], transform: ['translateY(-6px)', 'none'] }, { duration: 280, easing: 'ease-out' })
+      anim.onfinish = () => {
+        if (!opening) item.open = false
+        item.classList.remove('is-closing')
+        item.style.overflow = ''
+        anim = null
+      }
+    })
+  })
+</script>
+
+<style>
+  .faq {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--gutter) var(--section-y);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(24px, 4vw, 40px);
+  }
+  @media (min-width: 960px) {
+    .faq { grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); align-items: start; }
+    .head { position: sticky; top: 100px; }
+  }
+  .head { display: flex; flex-direction: column; gap: 16px; }
+
+  .list { display: flex; flex-direction: column; gap: 10px; }
+  .item {
+    background: var(--grey);
+    border-radius: 20px;
+    transition: background .2s;
+  }
+  .item[open]:not(.is-closing) { background: var(--yellow-soft); }
+  .item__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px clamp(16px, 4vw, 24px);
+    cursor: pointer;
+    list-style: none;
+    border-radius: 20px;
+  }
+  .item__q::-webkit-details-marker { display: none; }
+  .item__q:focus-visible { outline: 3px solid var(--black); outline-offset: 2px; }
+  .item__title { margin: 0; font: 700 clamp(16px, 1.6vw, 18px)/1.35 var(--font-body); }
+  .item__icon {
+    flex: none;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--black);
+    transition: transform .2s, background .2s;
+  }
+  .item__icon::before,
+  .item__icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 14px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--white);
+  }
+  .item__icon::after { transform: rotate(90deg); transition: transform .2s; }
+  .item[open]:not(.is-closing) .item__icon { background: var(--yellow); }
+  .item[open]:not(.is-closing) .item__icon::before,
+  .item[open]:not(.is-closing) .item__icon::after { background: var(--black); }
+  .item[open]:not(.is-closing) .item__icon::after { transform: rotate(0deg); }
+  .item__a {
+    margin: 0;
+    padding: 0 clamp(16px, 4vw, 24px) 20px;
+    max-width: 680px;
+    font: 500 16px/1.6 var(--font-body);
+    color: var(--grey-text);
+    text-wrap: pretty;
+  }
+</style>
