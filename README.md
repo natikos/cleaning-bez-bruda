@@ -55,6 +55,6 @@ Hosted on Cloudflare as static assets (`wrangler.jsonc`; unknown URLs get `404.h
 
 For staging/demo deploys set `SITE_URL=https://your-demo.example` and `NOINDEX=1` at build time: canonical URLs follow `SITE_URL`, and the build gets `noindex` meta, a disallow-all `robots.txt` and no sitemap.
 
-Deploys are manual: run the Deploy workflow from the GitHub Actions tab (`.github/workflows/deploy.yml`). It first runs the CI checks and deploys only if they pass. Add the repository secrets `CLOUDFLARE_API_TOKEN` (token with the "Edit Cloudflare Workers" template) and `CLOUDFLARE_ACCOUNT_ID`.
+Merging into `main` deploys automatically (`.github/workflows/deploy.yml`), and the workflow can also be run by hand from the Actions tab, on `main` only. Both run the CI checks first and deploy only if they pass. `main` is protected: changes go through pull requests. Add the repository secrets `CLOUDFLARE_API_TOKEN` (token with the "Edit Cloudflare Workers" template) and `CLOUDFLARE_ACCOUNT_ID`.
 
 CI (`.github/workflows/ci.yml`) runs format check, lint, typecheck, and build.
