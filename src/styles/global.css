@@ -29,7 +29,6 @@ body {
   background: var(--white);
   color: var(--black);
   font-family: var(--font-body);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 a {
@@ -116,4 +115,36 @@ select:focus-visible,
 textarea:focus-visible {
   outline: 3px solid var(--black);
   outline-offset: 3px;
+  /* white halo keeps the ring visible on black surfaces */
+  box-shadow: 0 0 0 3px var(--white);
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -64px;
+  z-index: 100;
+  padding: 12px 18px;
+  border-radius: 999px;
+  background: var(--black);
+  color: var(--white);
+  font: 700 14px/1 var(--font-body);
+}
+.skip-link:focus {
+  top: 12px;
+  color: var(--white);
+  outline-color: var(--yellow);
+}
+
+/* Reveal-on-scroll: .reveal is added by JS only, so content stays visible without it */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s ease var(--reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) var(--reveal-delay, 0ms);
+}
+.reveal.is-revealed {
+  opacity: 1;
+  transform: none;
 }

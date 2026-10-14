@@ -17,22 +17,23 @@ The dev server runs on `http://localhost:4321`.
 
 ## Scripts
 
-| Command                | Description                      |
-| ---------------------- | -------------------------------- |
-| `bun run dev`          | Start the development server     |
-| `bun run build`        | Build the static site to `dist/` |
-| `bun run preview`      | Preview the production build     |
-| `bun run typecheck`    | Type-check with `astro check`    |
-| `bun run format`       | Format the code with Prettier    |
-| `bun run format:check` | Check formatting without writing |
-| `bun run lint`         | Lint with ESLint                 |
-| `bun run lint:fix`     | Lint and auto-fix with ESLint    |
+| Command                | Description                                  |
+| ---------------------- | -------------------------------------------- |
+| `bun run dev`          | Start the development server                 |
+| `bun run build`        | Build the static site to `dist/`             |
+| `bun run preview`      | Preview the production build                 |
+| `bun run typecheck`    | Type-check with `astro check`                |
+| `bun run format`       | Format the code with Prettier                |
+| `bun run format:check` | Check formatting without writing             |
+| `bun run lint`         | Lint with ESLint                             |
+| `bun run lint:fix`     | Lint and auto-fix with ESLint                |
+| `bun run deploy`       | Build and deploy to Cloudflare with Wrangler |
 
 ## Project structure
 
 ```
 src/pages/       Routes: / (Ukrainian), /en/ (English), robots.txt
-src/layouts/     HomePage.astro: <head> (SEO meta, hreflang, JSON-LD) and section order
+src/layouts/     BaseLayout.astro: shared <head>; HomePage.astro: SEO meta, hreflang, JSON-LD and section order
 src/components/  One component per section (header, hero, services, FAQ, ...)
 src/i18n/        All copy: uk.ts (source of truth) and en.ts, plus locale helpers
 src/data/        Contacts, prices and structured data (schema.org) builder
@@ -50,4 +51,10 @@ public/          Favicons, app icons, OG images, messenger icons
 
 ## Deployment
 
-The build output is a static site in `dist/`; see the [Astro deployment docs](https://docs.astro.build/en/guides/deploy/).
+Hosted on Cloudflare as static assets (`wrangler.jsonc`; unknown URLs get `404.html`). `bun run deploy` builds and publishes; `public/_headers` sets caching and security headers.
+
+For staging/demo deploys set `SITE_URL=https://your-demo.example` and `NOINDEX=1` at build time: canonical URLs follow `SITE_URL`, and the build gets `noindex` meta, a disallow-all `robots.txt` and no sitemap.
+
+Merging into `main` deploys automatically (`.github/workflows/deploy.yml`), and the workflow can also be run by hand from the Actions tab, on `main` only. Both run the CI checks first and deploy only if they pass. `main` is protected: changes go through pull requests. Add the repository secrets `CLOUDFLARE_API_TOKEN` (token with the "Edit Cloudflare Workers" template) and `CLOUDFLARE_ACCOUNT_ID`.
+
+CI (`.github/workflows/ci.yml`) runs format check, lint, typecheck, and build.

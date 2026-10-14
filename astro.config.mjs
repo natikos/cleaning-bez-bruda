@@ -12,5 +12,6 @@ export default defineConfig({
     locales: [...locales],
     routing: { prefixDefaultLocale: false }
   },
-  integrations: [sitemap({ i18n: { defaultLocale, locales: { uk: 'uk', en: 'en' } } })]
+  // No sitemap for NOINDEX staging deploys
+  integrations: process.env.NOINDEX ? [] : [sitemap({ i18n: { defaultLocale, locales: { uk: 'uk', en: 'en' } } })]
 });

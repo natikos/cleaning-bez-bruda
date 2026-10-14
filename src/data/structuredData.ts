@@ -57,7 +57,7 @@ export function buildStructuredData(t: Dict, site: URL, pageUrl: string) {
         })
       }))
     },
-    sameAs: [`https://instagram.com/${instagram.handle}`]
+    sameAs: [instagram.href]
   };
 
   return {
