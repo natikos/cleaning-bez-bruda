@@ -1,7 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import SectionBadge from './SectionBadge.astro';
-import logo from '../assets/logo.png';
+import SplitSection from './SplitSection.astro';
+import LogoStage from './LogoStage.astro';
 import { minPrice } from '../data/prices';
 import { getDict } from '../i18n';
 
@@ -17,11 +17,8 @@ const bubbles = [
 ---
 
 <section class="hero" aria-labelledby="h1">
-  <div class="hero__shape hero__shape--grey" aria-hidden="true"></div>
-  <div class="hero__shape hero__shape--yellow" aria-hidden="true"></div>
-
-  <div class="hero__inner">
-    <div class="intro">
+  <SplitSection>
+    <Fragment slot="intro">
       <SectionBadge as="h1" id="h1" icon="sparkle">
         {t.hero.h1}
       </SectionBadge>
@@ -42,100 +39,19 @@ const bubbles = [
           </li>
         ))}
       </ul>
-    </div>
+    </Fragment>
 
-    <div class="visual">
-      <div class="visual__stage">
-        <div class="bubbles" aria-hidden="true">
-          {bubbles.map(b => (
-            <span
-              class="bubble"
-              style={{
-                [b.side]: b.x,
-                bottom: b.bottom,
-                '--size': `${b.size}px`,
-                '--dur': `${b.duration}s`,
-                '--delay': `${b.delay}s`
-              }}
-            />
-          ))}
-        </div>
-        <div class="logo-circle">
-          <Image
-            src={logo}
-            alt={t.hero.logoAlt}
-            widths={[240, 360, 480, 640]}
-            sizes="(min-width: 980px) 320px, min(56vw, 340px)"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-        <div class="price-badge">
-          <span class="price-badge__from">{t.hero.priceFrom}</span>
-          <span class="price-badge__value">{minPrice}</span>
-          <span class="price-badge__unit">{t.hero.unit}</span>
-        </div>
+    <LogoStage slot="visual" bubbles={bubbles} alt={t.hero.logoAlt}>
+      <div class="price-badge">
+        <span class="price-badge__from">{t.hero.priceFrom}</span>
+        <span class="price-badge__value">{minPrice}</span>
+        <span class="price-badge__unit">{t.hero.unit}</span>
       </div>
-    </div>
-  </div>
+    </LogoStage>
+  </SplitSection>
 </section>
 
 <style>
-  .hero {
-    position: relative;
-    overflow: hidden;
-  }
-  .hero__shape {
-    position: absolute;
-    top: 0;
-    height: 100%;
-  }
-  .hero__shape--grey {
-    right: 0;
-    width: min(58vw, 760px);
-    background: var(--grey);
-    clip-path: polygon(28% 0, 100% 0, 100% 100%, 0 100%);
-  }
-  .hero__shape--yellow {
-    right: min(30vw, 420px);
-    width: min(16vw, 180px);
-    background: var(--yellow);
-    clip-path: polygon(70% 0, 100% 0, 30% 100%, 0 100%);
-  }
-  .hero__inner {
-    position: relative;
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: clamp(32px, 6vw, 80px) var(--gutter) clamp(44px, 6vw, 88px);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
-    gap: clamp(28px, 4vw, 56px);
-    align-items: center;
-  }
-
-  /* Left column */
-  .intro {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    align-items: flex-start;
-  }
-  .intro__title {
-    margin: 0;
-    font: 700 clamp(30px, 4.4vw, 56px) / 1.12 var(--font-display);
-    letter-spacing: -0.025em;
-  }
-  .highlight {
-    background: linear-gradient(transparent 58%, var(--yellow) 58%, var(--yellow) 92%, transparent 92%);
-  }
-  .intro__text {
-    margin: 0;
-    max-width: 540px;
-    font: 500 clamp(16px, 1.6vw, 19px) / 1.55 var(--font-body);
-    color: var(--grey-text);
-    text-wrap: pretty;
-  }
-
   .facts {
     list-style: none;
     margin: 0;
@@ -179,50 +95,6 @@ const bubbles = [
   }
 
   /* Right column */
-  .visual {
-    container-type: inline-size;
-    width: min(100%, 600px);
-    justify-self: center;
-  }
-  .visual__stage {
-    position: relative;
-    aspect-ratio: 1;
-    font-size: clamp(13px, 2.8cqw, 16px);
-  }
-  .bubbles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 2;
-  }
-  .bubble {
-    position: absolute;
-    width: var(--size);
-    height: var(--size);
-    animation: bb-rise var(--dur) ease-in var(--delay) infinite backwards;
-    border-radius: 50%;
-    border: 2px solid var(--blue);
-    background: rgba(110, 198, 240, 0.18);
-  }
-  .logo-circle {
-    position: absolute;
-    inset: 11%;
-    border-radius: 50%;
-    background: var(--white);
-    box-shadow:
-      0 30px 80px rgba(11, 11, 11, 0.12),
-      0 0 0 12px rgba(255, 255, 255, 0.7);
-    display: grid;
-    place-items: center;
-    overflow: hidden;
-    animation: bb-float 6s ease-in-out infinite;
-  }
-  .logo-circle img {
-    width: 72%;
-    height: 72%;
-    object-fit: contain;
-  }
-
   .price-badge {
     position: absolute;
     right: 3%;

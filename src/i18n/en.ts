@@ -170,6 +170,14 @@ export const en: Dict = {
     area: 'Lviv and Lviv Oblast'
   },
 
+  notFound: {
+    badge: 'Error 404',
+    titleAccent: 'Squeaky clean —',
+    titleRest: 'and no page here',
+    text: 'The link may be outdated or mistyped. Head back to the home page — everything sparkles there.',
+    home: 'Back to home'
+  },
+
   schema: {
     city: 'Lviv',
     region: 'Lviv Oblast',

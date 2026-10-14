@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import { getDict } from '../i18n';
+
+const { href, ...attrs } = Astro.props;
+const t = getDict(Astro.currentLocale);
+---
+
+<a class="brand" href={href} aria-label={t.brand.home} {...attrs}>
+  <Image class="brand__logo" src={logo} alt="" width={44} height={44} densities={[1, 2]} loading="eager" />
+  <span class="brand__text">
+    <span class="brand__name">
+      {t.brand.first} <span class="accent">{t.brand.accent}</span>
+    </span>
+    <span class="brand__sub">{t.brand.sub}</span>
+  </span>
+</a>
+
+<style>
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  .brand__logo {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid var(--grey);
+  }
+  .brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    min-width: 0;
+  }
+  .brand__name {
+    font: 800 21px/1 var(--font-display);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+  .accent {
+    color: var(--yellow);
+  }
+  .brand__sub {
+    margin-top: 3px;
+    font: 600 10px/1.4 var(--font-body);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey-text);
+    white-space: nowrap;
+  }
+  @media (max-width: 374px) {
+    .brand__name {
+      font-size: 18px;
+    }
+    .brand__sub {
+      font-size: 9px;
+      letter-spacing: 0.08em;
+    }
+    .brand__logo {
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>

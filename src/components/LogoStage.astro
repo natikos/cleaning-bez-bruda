@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+interface Bubble {
+  side: 'left' | 'right';
+  x: string;
+  bottom: string;
+  size: number;
+  duration: number;
+  delay: number;
+}
+interface Props {
+  bubbles: readonly Bubble[];
+  alt?: string;
+}
+const { bubbles, alt = '' } = Astro.props;
+---
+
+<div class="visual">
+  <div class="visual__stage">
+    <div class="bubbles" aria-hidden="true">
+      {bubbles.map(b => (
+        <span
+          class="bubble"
+          style={{
+            [b.side]: b.x,
+            bottom: b.bottom,
+            '--size': `${b.size}px`,
+            '--dur': `${b.duration}s`,
+            '--delay': `${b.delay}s`
+          }}
+        />
+      ))}
+    </div>
+    <div class="logo-circle">
+      <Image
+        src={logo}
+        {alt}
+        widths={[240, 360, 480, 640]}
+        sizes="(min-width: 980px) 320px, min(56vw, 340px)"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <slot />
+  </div>
+</div>
+
+<style>
+  .visual {
+    container-type: inline-size;
+    width: min(100%, 600px);
+    justify-self: center;
+  }
+  .visual__stage {
+    position: relative;
+    aspect-ratio: 1;
+    font-size: clamp(13px, 2.8cqw, 16px);
+  }
+  .bubbles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .bubble {
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    animation: bb-rise var(--dur) ease-in var(--delay) infinite backwards;
+    border-radius: 50%;
+    border: 2px solid var(--blue);
+    background: rgba(110, 198, 240, 0.18);
+  }
+  .logo-circle {
+    position: absolute;
+    inset: 11%;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow:
+      0 30px 80px rgba(11, 11, 11, 0.12),
+      0 0 0 12px rgba(255, 255, 255, 0.7);
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    animation: bb-float 6s ease-in-out infinite;
+  }
+  .logo-circle img {
+    width: 72%;
+    height: 72%;
+    object-fit: contain;
+  }
+</style>
