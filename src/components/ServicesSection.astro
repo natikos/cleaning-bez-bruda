@@ -8,19 +8,19 @@ import { getDict } from '../i18n';
 
 const t = getDict(Astro.currentLocale);
 
-// Visual settings per card; text comes from the dictionary in the same order
-const looks = [
-  { theme: 'grey', img: floor, crop: { x: '45%', y: '55%', zoom: 1 }, tagTones: [undefined, undefined] },
-  {
+// Visual settings per card, keyed by the service id from the dictionary
+const looks = {
+  floors: { theme: 'grey', img: floor, crop: { x: '45%', y: '55%', zoom: 1 }, tagTones: [undefined, undefined] },
+  carpet: {
     theme: 'yellow',
     img: carpet,
     crop: { x: '45%', y: '50%', zoom: 1 },
     tagTones: ['dark', 'dark', undefined]
   },
-  { theme: 'black', img: equipment, crop: { x: '45%', y: '50%', zoom: 1 }, tagTones: ['accent'] }
-];
-const services = t.services.items.map((item, i) => {
-  const look = looks[i]!;
+  equipment: { theme: 'black', img: equipment, crop: { x: '45%', y: '50%', zoom: 1 }, tagTones: ['accent'] }
+} as const;
+const services = t.services.items.map(item => {
+  const look = looks[item.id];
   return { ...look, ...item, tags: item.tags.map((label, j) => ({ label, tone: look.tagTones[j] })) };
 });
 ---

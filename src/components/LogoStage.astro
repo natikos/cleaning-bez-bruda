@@ -11,10 +11,18 @@ interface Bubble {
   delay: number;
 }
 interface Props {
-  bubbles: readonly Bubble[];
+  bubbles?: readonly Bubble[];
   alt?: string;
 }
-const { bubbles, alt = '' } = Astro.props;
+const defaultBubbles: readonly Bubble[] = [
+  { side: 'left', x: '12%', bottom: '18%', size: 22, duration: 7, delay: 0 },
+  { side: 'left', x: '26%', bottom: '10%', size: 14, duration: 9, delay: 1.5 },
+  { side: 'right', x: '16%', bottom: '22%', size: 30, duration: 8, delay: 3 },
+  { side: 'right', x: '30%', bottom: '8%', size: 12, duration: 6, delay: 2 },
+  { side: 'left', x: '44%', bottom: '4%', size: 18, duration: 10, delay: 4.5 },
+  { side: 'right', x: '8%', bottom: '40%', size: 16, duration: 7.5, delay: 5 }
+];
+const { bubbles = defaultBubbles, alt = '' } = Astro.props;
 ---
 
 <div class="visual">
