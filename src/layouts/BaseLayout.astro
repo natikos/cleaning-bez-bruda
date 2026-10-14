@@ -2,6 +2,7 @@
 import '@fontsource-variable/manrope';
 import '@fontsource-variable/unbounded';
 import '../styles/global.css';
+import { gaId } from '../data/site';
 import manropeCyrillic from '@fontsource-variable/manrope/files/manrope-cyrillic-wght-normal.woff2?url';
 import unboundedCyrillic from '@fontsource-variable/unbounded/files/unbounded-cyrillic-wght-normal.woff2?url';
 
@@ -30,6 +31,48 @@ const { title, lang, robots } = Astro.props;
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <slot name="head" />
+    {gaId && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+        <script is:inline define:vars={{ gaId }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            // gtag.js only recognises the `arguments` object, not an array
+            // eslint-disable-next-line prefer-rest-params
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', gaId);
+
+          // Conversion events: call / messenger / language clicks, with the page block they came from
+          document.addEventListener('click', e => {
+            const a = e.target instanceof Element ? e.target.closest('a[href]') : null;
+            if (!a) return;
+            const href = a.getAttribute('href') || '';
+            const block = a.closest('.call-fab, header, footer, section[id]');
+            const place = !block
+              ? 'page'
+              : block.matches('.call-fab')
+                ? 'call_fab'
+                : block.id || block.tagName.toLowerCase();
+            if (href.startsWith('tel:')) {
+              gtag('event', 'call_click', { place });
+            } else if (/wa\.me|^viber:|t\.me|instagram\.com/.test(href)) {
+              const channel = /wa\.me/.test(href)
+                ? 'whatsapp'
+                : href.startsWith('viber:')
+                  ? 'viber'
+                  : /t\.me/.test(href)
+                    ? 'telegram'
+                    : 'instagram';
+              gtag('event', 'messenger_click', { channel, place });
+            } else if (a.matches('.lang a')) {
+              gtag('event', 'lang_switch', { to: a.getAttribute('hreflang') });
+            }
+          });
+        </script>
+      </>
+    )}
   </head>
   <body>
     <slot />
