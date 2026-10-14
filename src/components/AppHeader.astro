@@ -103,6 +103,22 @@ const nav = (['services', 'clients', 'prices', 'faq', 'contacts'] as const).map(
     gap: 16px;
   }
 
+  .nav__list {
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font: 600 15px/1 var(--font-body);
+  }
+  .nav__link {
+    display: block;
+    padding: 8px 0;
+  }
+  .nav__extra {
+    display: none;
+  }
+
   .actions {
     display: flex;
     align-items: center;
