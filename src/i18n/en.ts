@@ -10,7 +10,7 @@ export const en: Dict = {
 
   meta: {
     title: `Commercial Cleaning in Lviv — from ${minPrice} UAH/m² | Bez Bruda`,
-    description: `Commercial cleaning company in Lviv, Ukraine: floor washing, carpet cleaning, office and post-renovation cleaning for businesses. Kärcher equipment, from ${minPrice} UAH/m². ☎ ${phone.intl}`,
+    description: `Commercial cleaning in Lviv: floor washing, carpet cleaning, office and post-renovation cleaning. Kärcher equipment, from ${minPrice} UAH/m². Call ${phone.intl}`,
     ogImage: '/og-en.jpg',
     ogImageAlt: 'Bez Bruda — commercial cleaning in Lviv'
   },
@@ -32,6 +32,7 @@ export const en: Dict = {
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
     call: 'Call us',
+    skip: 'Skip to content',
     langLabel: 'Site language'
   },
 
@@ -68,18 +69,21 @@ export const en: Dict = {
     title: 'What we clean and how',
     items: [
       {
+        id: 'floors' as const,
         alt: 'Yana washing an office floor with a professional scrubber',
         title: 'Floor washing & deep cleaning',
         text: 'Professional cleaning of hard floors with specialised equipment and professional-grade chemicals.',
         tags: ['Specialised equipment', 'Professional chemicals']
       },
       {
+        id: 'carpet' as const,
         alt: 'Yana preparing a professional machine with a pad for carpet cleaning in an office',
         title: 'Carpet cleaning',
         text: 'Deep cleaning of carpets and textile floor coverings to remove dirt, stains and unpleasant odours. Dry or wet method, depending on your carpet.',
         tags: ['Dry', 'Wet', 'Stains & odours']
       },
       {
+        id: 'equipment' as const,
         alt: 'Professional Kärcher carpet cleaning machine',
         title: 'Our equipment',
         text: 'Specialised Kärcher Professional machines and professional chemicals for every type of surface. We bring all the equipment with us.',

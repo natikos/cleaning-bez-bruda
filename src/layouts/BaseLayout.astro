@@ -1,0 +1,37 @@
+---
+import '@fontsource-variable/manrope';
+import '@fontsource-variable/unbounded';
+import '../styles/global.css';
+import manropeCyrillic from '@fontsource-variable/manrope/files/manrope-cyrillic-wght-normal.woff2?url';
+import unboundedCyrillic from '@fontsource-variable/unbounded/files/unbounded-cyrillic-wght-normal.woff2?url';
+
+interface Props {
+  title: string;
+  lang: string;
+  robots: string;
+}
+const { title, lang, robots } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="robots" content={robots} />
+    <link rel="preload" as="font" type="font/woff2" href={manropeCyrillic} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={unboundedCyrillic} crossorigin />
+    <meta name="theme-color" content="#f8cc0b" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
