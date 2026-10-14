@@ -66,7 +66,7 @@ const enText = en.notFound;
 </BaseLayout>
 
 <style>
-  body {
+  :global(body) {
     min-height: 100svh;
     display: flex;
     flex-direction: column;
@@ -81,7 +81,11 @@ const enText = en.notFound;
   .nf {
     flex: 1;
     display: grid;
-    align-items: center;
+  }
+  /* Stretch the backdrop from the header to the bottom of the viewport, centering the content inside */
+  .nf :global(.split) {
+    display: grid;
+    align-content: center;
   }
   .actions {
     display: flex;
